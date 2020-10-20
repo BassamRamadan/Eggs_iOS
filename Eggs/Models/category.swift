@@ -13,9 +13,9 @@ class categoryJson: Codable {
     let status: Bool?
     let code: Int?
     let message: String?
-    let data: categoryData?
+    let data: categoriesData?
     
-    init(status: Bool?, code: Int?, message: String?, data: categoryData?) {
+    init(status: Bool?, code: Int?, message: String?, data: categoriesData?) {
         self.status = status
         self.code = code
         self.message = message
@@ -24,11 +24,11 @@ class categoryJson: Codable {
 }
 
 // MARK: - DataClass
-class categoryData: Codable {
+class categoriesData: Codable {
     let countTotal: Int?
     let nextPageURL: String?
     let pages: Int?
-    let categoryItems: [categoryItem]?
+    let categoryItems: [categoryData]?
     
     enum CodingKeys: String, CodingKey {
         case countTotal = "count_total"
@@ -37,7 +37,7 @@ class categoryData: Codable {
         case categoryItems = "data"
     }
     
-    init(countTotal: Int?, nextPageURL: String?, pages: Int?, categoryItems: [categoryItem]?) {
+    init(countTotal: Int?, nextPageURL: String?, pages: Int?, categoryItems: [categoryData]?) {
         self.countTotal = countTotal
         self.nextPageURL = nextPageURL
         self.pages = pages
@@ -46,7 +46,7 @@ class categoryData: Codable {
 }
 
 // MARK: - Datum
-class categoryItem: Codable {
+class categoryData: Codable {
     let id: Int?
     let title, note: String?
     let image: String?

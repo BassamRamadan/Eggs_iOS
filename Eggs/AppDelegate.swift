@@ -15,6 +15,7 @@ import Firebase
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    static var isEnglish = true
     static var stringWithLink = ""
     static var LocalUrl = "https://www.eggs-apps.com/app/api/"
     static var badge = [CAShapeLayer(),CAShapeLayer(),CAShapeLayer(),CAShapeLayer(),CAShapeLayer()]

@@ -13,7 +13,7 @@ class common : UIViewController , NVActivityIndicatorViewable{
     
     class func drowbackButton()->UIButton {
         let notifBtn: UIButton = UIButton(type: UIButton.ButtonType.custom)
-        notifBtn.setImage(#imageLiteral(resourceName: "ic_back_arrow"), for: [])
+        notifBtn.setImage(#imageLiteral(resourceName: "ic_back_dark"), for: [])
         notifBtn.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         return notifBtn
         // Do any additional setup after loading the view
@@ -101,20 +101,21 @@ class common : UIViewController , NVActivityIndicatorViewable{
         }
     }
     
-    func setupBackButtonWithPOP() {
+    func setupBackButtonWithPOP(_ pop:Bool? = true) {
         self.navigationItem.hidesBackButton = true
         let backBtn: UIButton = common.drowbackButton()
         let backButton = UIBarButtonItem(customView: backBtn)
-        self.navigationItem.setRightBarButton(backButton, animated: true)
-        backBtn.addTarget(self, action: #selector(self.POP), for: UIControl.Event.touchUpInside)
-    }
-    
-    func setupBackButtonWithDismiss() {
-        self.navigationItem.hidesBackButton = true
-        let backBtn: UIButton = common.drowbackButton()
-        let backButton = UIBarButtonItem(customView: backBtn)
-        self.navigationItem.setRightBarButton(backButton, animated: true)
-        backBtn.addTarget(self, action: #selector(self.Dismiss), for: UIControl.Event.touchUpInside)
+        if pop == true{
+            backBtn.addTarget(self, action: #selector(self.POP), for: UIControl.Event.touchUpInside)
+        }else{
+            backBtn.addTarget(self, action: #selector(self.Dismiss), for: UIControl.Event.touchUpInside)
+        }
+        
+        if AppDelegate.isEnglish{
+            self.navigationItem.setLeftBarButton(backButton, animated: true)
+        }else{
+            self.navigationItem.setRightBarButton(backButton, animated: true)
+        }
     }
     
     @objc func Dismiss() {
