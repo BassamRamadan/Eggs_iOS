@@ -8,15 +8,20 @@
 
 import UIKit
 
-class ContentViewController: common {
+class ContentViewController: common{
     
     var MenuButton: UIButton!
+    var search: UISearchController!
     var CartButton: UIButton!
+    
+    var leftButton,rightButton: UIBarButtonItem!
+    var titleView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
         MenuButton = setupButton(imageName: "ic_menu")
-        CartButton = setupButton(imageName: "ic_cart")
+        search = UISearchController(searchResultsController: nil)
+        CartButton = setupButton(imageName: "ic_back_dark")
         
         // function performed when the button is tapped
         MenuButton.addTarget(self, action: #selector(handleSetting(_:)), for: .touchUpInside)
@@ -26,11 +31,20 @@ class ContentViewController: common {
         self.navigationItem.rightBarButtonItem = Rightbutton
         
         
-        let Leftbutton = UIBarButtonItem(customView: CartButton)
-        self.navigationItem.setLeftBarButton(Leftbutton, animated: true)
+     //   let Leftbutton = UIBarButtonItem(customView: CartButton)
+      //  self.navigationItem.setLeftBarButton(Leftbutton, animated: true)
         
+        search.searchBar.delegate = self
+        navigationItem.titleView = search.searchBar
+        search.hidesNavigationBarDuringPresentation = false
+        search.searchBar.searchTextField()
         
+        leftButton = self.navigationItem.leftBarButtonItem;
+        rightButton = self.navigationItem.rightBarButtonItem;
+        // set current navigation title view to be search bar.
+        titleView = self.navigationItem.titleView;
     }
+    
     func setupButton(imageName: String) -> UIButton{
         let MenuButton = UIButton(type: .system)
         MenuButton.setImage(UIImage(named: imageName) , for: .normal)
@@ -57,6 +71,7 @@ class ContentViewController: common {
         let linkingVC = storyboard.instantiateViewController(withIdentifier: "Setting") as! UINavigationController
         self.present(linkingVC, animated: true)
     }
+  
     func getCartItems(id:Int){
        /* getCartItems{
             (data) in
@@ -66,4 +81,14 @@ class ContentViewController: common {
  */
     }
 
+}
+extension ContentViewController: UISearchBarDelegate{
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        
+        let storyboard = UIStoryboard(name: "Searching", bundle: nil)
+        let linkingVC = storyboard.instantiateViewController(withIdentifier: "Searching") as! Searching
+        self.present(linkingVC,animated: true,completion: nil)
+        
+        return false
+    }
 }

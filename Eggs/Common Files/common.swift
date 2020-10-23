@@ -141,7 +141,13 @@ class common : UIViewController , NVActivityIndicatorViewable{
         self.present(linkingVC,animated: true,completion: nil)
     }
     
-  
+    func openProductDetails(productId : Int){
+        let storyboard = UIStoryboard(name: "productDetails", bundle: nil)
+        let linkingVC = storyboard.instantiateViewController(withIdentifier: "productDetails")  as! UINavigationController
+        let VC = linkingVC.viewControllers[0] as! productDetailsController
+        VC.productId = productId
+        self.present(linkingVC, animated: true)
+    }
     
     
     
@@ -227,7 +233,7 @@ extension UIImageView {
     func setDefaultImage(url: String){
         self.sd_setImage(with: URL(string: url))
         if self.image == nil{
-            self.image =  #imageLiteral(resourceName: "logo")
+            self.image =  #imageLiteral(resourceName: "Icon-Small-50")
         }
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class mainController: common {
+class mainController: ContentViewController {
 
     @IBOutlet var categoryCollection: UICollectionView!
     @IBOutlet var productsCollection: UICollectionView!
@@ -16,10 +16,12 @@ class mainController: common {
     @IBOutlet var categoriesView: UIView!
     @IBOutlet var productsView: UIView!
     
+    @IBOutlet var productsCount: UILabel!
+    @IBOutlet var productsCategory: UILabel!
+    
     var page = 1
     var categories: categoriesData?
     var products: productsData?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,7 +30,6 @@ class mainController: common {
         collectionViewaDelegation()
         getCategory()
         setupBackButtonWithPOP()
-        
     }
     override func setupBackButtonWithPOP(_ pop:Bool? = true) {
         self.navigationItem.hidesBackButton = true
@@ -56,10 +57,15 @@ class mainController: common {
             page += 1
         }else{
             page -= 1
+            page = max(1,page)
+        }
+        if page == 2{
+            productsCollection.reloadData()
+        }else{
+            categoryCollection.reloadData()
         }
         categoriesView.isHidden = (page == 2)
-        productsView.isHidden = (page == 1)
-        productsCollection.reloadData()
+        productsView.isHidden = (page != 2)
     }
     
     @IBAction func openFilters(){
@@ -108,9 +114,9 @@ class mainController: common {
             }
         }
     }
-    fileprivate func getProduct(categoryId: Int) {
+    fileprivate func getProducts(categoryId: Int) {
         self.loading()
-        let url = AppDelegate.LocalUrl + "product?cat_id=\(categoryId)"
+        let url = AppDelegate.LocalUrl + "product?cat_id=\(categories?.categoryItems?[categoryId].id ?? 0)"
         let headers = [
             "Content-Type": "application/json" ,
             "Accept" : "application/json",
@@ -126,6 +132,8 @@ class mainController: common {
                         let dataRecived = try decoder.decode(productsJson.self, from: jsonData)
                         self.products = dataRecived.data
                         self.productsCollection.reloadData()
+                        self.productsCount.text = "\(self.products?.data?.count ?? 0)"
+                        self.productsCategory.text = self.categories?.categoryItems?[categoryId].title
                         self.stopAnimating()
                     }else{
                         let dataRecived = try decoder.decode(ErrorHandle.self, from: jsonData)
@@ -182,8 +190,12 @@ extension mainController: UICollectionViewDelegate , UICollectionViewDataSource 
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        currentPageToAppear()
-        getProduct(categoryId: categories?.categoryItems?[indexPath.row].id ?? 0)
+        if collectionView == productsCollection{
+            openProductDetails(productId: products?.data?[indexPath.row].id ?? 0)
+        }else{
+            currentPageToAppear()
+             getProducts(categoryId: indexPath.row)
+        }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         if collectionView == categoryCollection{
