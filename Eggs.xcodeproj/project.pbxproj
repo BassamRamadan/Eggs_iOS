@@ -72,6 +72,7 @@
 		589612F62536BA28007CC8C0 /* cart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cart.swift; sourceTree = "<group>"; };
 		589612F82536C544007CC8C0 /* cart.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = cart.storyboard; sourceTree = "<group>"; };
 		589612FB2536C5A4007CC8C0 /* categories.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = categories.storyboard; sourceTree = "<group>"; };
+		58966D592545ADBC00C2FBFE /* common.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = common.storyboard; path = "/Volumes/Work/IOS Projects/Eggs/Eggs/common.storyboard"; sourceTree = "<absolute>"; };
 		58E1F56D252EFAB700BAB56F /* Eggs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Eggs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		58E1F575252EFAB700BAB56F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		58E1F577252EFAB700BAB56F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -233,6 +234,7 @@
 		58E1F56F252EFAB700BAB56F /* Eggs */ = {
 			isa = PBXGroup;
 			children = (
+				58966D592545ADBC00C2FBFE /* common.storyboard */,
 				584997172542BC9C00D9CF61 /* Helpers */,
 				5871E6A725414BC8002E274F /* Searching */,
 				582B4A95253D6DA80034FCE0 /* Login & sign */,

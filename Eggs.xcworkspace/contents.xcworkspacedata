@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Volumes/Work/IOS Projects/Eggs/Eggs/common.storyboard">
+   </FileRef>
+   <FileRef
       location = "group:Eggs.xcodeproj">
    </FileRef>
    <FileRef

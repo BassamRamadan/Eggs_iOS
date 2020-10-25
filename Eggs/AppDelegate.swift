@@ -27,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //    GMSServices.provideAPIKey("AIzaSyCH41pwRsQKTf9IXYWxzbMA1V6cHHsmmZM")
    // GMSPlacesClient.provideAPIKey("AIzaSyCH41pwRsQKTf9IXYWxzbMA1V6cHHsmmZM")
     //    FirebaseApp.configure()
+        CashedData.saveUserApiKey(token: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjUsImlzcyI6Imh0dHA6Ly9lZ2cubWUvYXBpL3VzZXJzL2F1dGgiLCJpYXQiOjE1OTgzNzA3MjIsImV4cCI6MTYwODg4MjcyMiwibmJmIjoxNTk4MzcwNzIyLCJqdGkiOiJZeDNieThCOE1URThWZ0huIn0.1KpTH8v6rtwP5yzJJcS9b_szfkBCYKy5qTziWJP_TMI")
         return true
     }
 

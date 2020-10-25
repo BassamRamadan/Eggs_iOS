@@ -119,7 +119,7 @@ extension filters{
         let headers = [
             "Content-Type": "application/json" ,
             "Accept" : "application/json",
-            "Authorization":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImlzcyI6Imh0dHA6Ly9lZ2cubWUvYXBpL21lcmNoYW50L3VzZXIvcmVnaXN0ZXIiLCJpYXQiOjE1OTgyNTg3NDUsImV4cCI6MTYwODc3MDc0NSwibmJmIjoxNTk4MjU4NzQ1LCJqdGkiOiJkWkFaYWpPQXhQY2dhSlFRIn0.k02CRtBJrf9TJvXhS2Mkp66qpH-vuKuegDrSMTsOmmQ",
+            "Authorization": (CashedData.getUserApiKey() ?? ""),
             "lang": "en",
             "country_id": "187"
         ]

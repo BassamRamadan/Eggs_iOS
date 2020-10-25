@@ -242,6 +242,9 @@
                                                                                         <constraint firstAttribute="width" constant="24" id="u4K-YU-BTw"/>
                                                                                     </constraints>
                                                                                     <state key="normal" image="ic_favorite"/>
+                                                                                    <connections>
+                                                                                        <action selector="addProductTo_MyFavWithSender:" destination="JGu-UP-791" eventType="touchUpInside" id="2xE-xq-l3K"/>
+                                                                                    </connections>
                                                                                 </button>
                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chicken_1" translatesAutoresizingMaskIntoConstraints="NO" id="HCp-cA-Gne" customClass="SDAnimatedImageView">
                                                                                     <rect key="frame" x="20" y="39" width="163" height="125"/>

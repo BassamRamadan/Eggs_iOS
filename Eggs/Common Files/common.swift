@@ -166,19 +166,19 @@ class common : UIViewController , NVActivityIndicatorViewable{
     
    
 }
-/* extension common{
-    func addToCart(productId: Int,weight_unit_id: Int,quantity: Int, completion: @escaping (Bool) -> Void){
+ extension common{
+    func addToFav(productId: Int, completion: @escaping (Bool) -> Void){
         self.loading()
-        let url = AppDelegate.LocalUrl + "add-to-cart"
+        let url = AppDelegate.LocalUrl + "product/addFav/product"
         let headers = [
             "Content-Type": "application/json" ,
             "Accept" : "application/json",
-            "Authorization" : "Bearer " + (CashedData.getUserApiKey() ?? "")
+            "lang": "en",
+            "country_id": "187",
+            "Authorization": (CashedData.getUserApiKey() ?? "")
         ]
         let info = [
-            "product_id": productId,
-            "product_weight_unit_id": weight_unit_id,
-            "quantity": quantity
+            "id": productId
         ]
         AlamofireRequests.PostMethod(methodType: "POST", url: url, info: info, headers: headers){
             (error, success, jsonData) in
@@ -206,8 +206,79 @@ class common : UIViewController , NVActivityIndicatorViewable{
             }
         }
     }
+    func getFavProducts(completion: @escaping ([productData]) -> Void){
+        self.loading()
+        let url = AppDelegate.LocalUrl + "product/getFav"
+        let headers = [
+            "lang": "en",
+            "country_id": "187",
+            "Authorization": (CashedData.getUserApiKey() ?? "")
+        ]
+        AlamofireRequests.getMethod(url: url, headers: headers){
+            (error, success, jsonData) in
+            do {
+                let decoder = JSONDecoder()
+                if error == nil {
+                    if success {
+                        let dataRecived = try decoder.decode(productsJson.self, from: jsonData)
+                        
+                        completion(dataRecived.data?.data ?? [])
+                        self.stopAnimating()
+                    }else{
+                        let dataRecived = try decoder.decode(ErrorHandle.self, from: jsonData)
+                        self.present(common.makeAlert(message: dataRecived.message ?? ""), animated: true, completion: nil)
+                        self.stopAnimating()
+                    }
+                    
+                }else{
+                    let dataRecived = try decoder.decode(ErrorHandle.self, from: jsonData)
+                    self.present(common.makeAlert(message: dataRecived.message ?? ""), animated: true, completion: nil)
+                    self.stopAnimating()
+                }
+            }catch {
+                self.present(common.makeAlert(), animated: true, completion: nil)
+                self.stopAnimating()
+            }
+        }
+    }
+    
+    func removeProductFromFav(productId: Int,completion: @escaping (Bool) -> Void){
+        self.loading()
+        let url = AppDelegate.LocalUrl + "product/deleteFav/product/\(productId)"
+        let headers = [
+            "lang": "en",
+            "country_id": "187",
+            "Authorization": (CashedData.getUserApiKey() ?? "")
+        ]
+        AlamofireRequests.getMethod(url: url, headers: headers){
+            (error, success, jsonData) in
+            do {
+                let decoder = JSONDecoder()
+                if error == nil {
+                    if success {
+                        let dataRecived = try decoder.decode(productsJson.self, from: jsonData)
+                        
+                        completion(true)
+                        self.stopAnimating()
+                    }else{
+                        let dataRecived = try decoder.decode(ErrorHandle.self, from: jsonData)
+                        self.present(common.makeAlert(message: dataRecived.message ?? ""), animated: true, completion: nil)
+                        self.stopAnimating()
+                    }
+                    
+                }else{
+                    let dataRecived = try decoder.decode(ErrorHandle.self, from: jsonData)
+                    self.present(common.makeAlert(message: dataRecived.message ?? ""), animated: true, completion: nil)
+                    self.stopAnimating()
+                }
+            }catch {
+                self.present(common.makeAlert(), animated: true, completion: nil)
+                self.stopAnimating()
+            }
+        }
+    }
 }
-*/
+
 
 
 extension String {

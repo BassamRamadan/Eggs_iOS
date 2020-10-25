@@ -22,6 +22,7 @@ class mainController: ContentViewController {
     var page = 1
     var categories: categoriesData?
     var products: productsData?
+    var favProducts = [productData]()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,7 +30,18 @@ class mainController: ContentViewController {
         productsView.isHidden = true
         collectionViewaDelegation()
         getCategory()
+        getMyFav()
         setupBackButtonWithPOP()
+    }
+    func getMyFav(){
+        getFavProducts{
+            data in
+            self.favProducts.removeAll()
+            self.favProducts.append(contentsOf: data)
+            if self.page == 2{
+                self.productsCollection.reloadData()
+            }
+        }
     }
     override func setupBackButtonWithPOP(_ pop:Bool? = true) {
         self.navigationItem.hidesBackButton = true
@@ -78,6 +90,10 @@ class mainController: ContentViewController {
             self.present(linkingVC,animated: true,completion: nil)
         }
     }
+    
+}
+
+extension mainController {
     fileprivate func getCategory() {
         self.loading()
         let url = AppDelegate.LocalUrl + "product/category"
@@ -182,7 +198,12 @@ extension mainController: UICollectionViewDelegate , UICollectionViewDataSource 
             let data = products?.data?[indexPath.row]
             cell.image.sd_setImage(with: URL(string: data?.image ?? ""))
             cell.title.text = data?.title ?? ""
-            cell.fav.tag = data?.id ?? 0
+            cell.fav.tag = indexPath.row
+            if favProducts.firstIndex(where: {$0.id == data?.id}) != nil{
+                cell.fav.setImage(#imageLiteral(resourceName: "ic_ac_fav_active"), for: .normal)
+            }else{
+                cell.fav.setImage(#imageLiteral(resourceName: "ic_ac_fav"), for: .normal)
+            }
             cell.salary.text = data?.price ?? "0"
             cell.rate.rating = Double(data?.rate ?? 0)
             return cell
@@ -202,6 +223,22 @@ extension mainController: UICollectionViewDelegate , UICollectionViewDataSource 
             return 0
         }else{
             return 15
+        }
+    }
+    @IBAction func addProductTo_MyFav(sender: UIButton){
+        let indx: Any? = favProducts.firstIndex(where: {$0.id == products?.data?[sender.tag].id ?? 0})
+        if indx == nil{
+            addToFav(productId: products?.data?[sender.tag].id ?? 0){
+                ok in
+                sender.setImage(#imageLiteral(resourceName: "ic_fav_active"), for: .normal)
+                self.favProducts.append((self.products?.data?[sender.tag])!)
+            }
+        }else{
+            removeProductFromFav(productId: products?.data?[sender.tag].id ?? 0){
+                ok in
+                sender.setImage(#imageLiteral(resourceName: "ic_fav"), for: .normal)
+                self.favProducts.remove(at: indx as! Int)
+            }
         }
     }
 }
