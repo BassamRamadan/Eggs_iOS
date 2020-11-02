@@ -20,13 +20,19 @@ class cart: common{
 }
 extension cart: UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return AppDelegate.CartProducts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cart", for: indexPath)
-        
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cart", for: indexPath) as! cartCell
+        let data = AppDelegate.CartProducts[indexPath.row]
+        cell.plus.tag = indexPath.row
+        cell.minus.tag = indexPath.row
+        cell.remove.tag = indexPath.row
+        cell.title.text = data.title ?? ""
+        cell.image.sd_setImage(with: URL(string: data.image ?? ""))
+        cell.salary.text = data.price ?? "0"
+        cell.count.text = "\(data.count ?? 1)"
         return cell
     }
     

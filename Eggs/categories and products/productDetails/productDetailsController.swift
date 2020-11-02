@@ -34,7 +34,10 @@ class productDetailsController: common{
     @IBOutlet var rateAsRatio: UILabel!
     @IBOutlet var rateAsNumber: UILabel!
     @IBOutlet var rate2: CosmosView!
+    @IBOutlet var fav: UIBarButtonItem!
+    @IBOutlet var CartProductNumber: UILabel!
     
+    var isFav = false
     var productId = 0
     var product: productDetails?
     override func viewDidLoad() {
@@ -46,13 +49,16 @@ class productDetailsController: common{
         rate2.didFinishTouchingCosmos = { rating in
             self.rateAsNumber.text = "\((rating))"
         }
+        
+        CartProductNumber.text = "\(AppDelegate.CartProducts.count)"
+        CartProductNumber.isHidden = AppDelegate.CartProducts.count == 0
         setupBackButtonWithPOP(false)
     }
     fileprivate func setupDate(){
         name.text = product?.title ?? ""
         price.text = product?.price ?? "0"
         rate.rating = Double(product?.rate ?? 0)
-        rateAsRatio.text = "\(Int((rate.rating/5.0)*100))"
+        rateAsRatio.text = "\(Int((rate.rating/5.0)*100))%"
         brand.text = product?.brand ?? ""
         brand2.text = product?.brand ?? ""
         brandImage.sd_setImage(with: URL(string: product?.brandImage ?? ""))
@@ -66,7 +72,25 @@ class productDetailsController: common{
         categoryName.text = product?.catName ?? ""
         volumeName.text = product?.volumeName ?? ""
         littleInfo.text = (product?.sectionName ?? "") + (product?.sizeName ?? "")
+        fav.image = (isFav ? #imageLiteral(resourceName: "ic_ac_fav_active") : #imageLiteral(resourceName: "ic_ac_fav")).withRenderingMode(.alwaysOriginal)
+    }
+    @IBAction func addToCart(sender: UIButton){
         
+    }
+    @IBAction func addProductTo_MyFav(sender: UIBarButtonItem){
+        if isFav == false{
+            addToFav(productId: productId, product: true){
+                ok in
+                self.fav.image =  #imageLiteral(resourceName: "ic_ac_fav_active").withRenderingMode(.alwaysOriginal)
+                self.isFav = true
+            }
+        }else{
+            removeProductFromFav(product: true, productId: productId){
+                ok in
+                self.fav.image =  #imageLiteral(resourceName: "ic_fav").withRenderingMode(.alwaysOriginal)
+                self.isFav = false
+            }
+        }
     }
     @IBAction func leftImage(){
         if pageControl.currentPage != 0{

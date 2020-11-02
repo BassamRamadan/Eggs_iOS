@@ -125,7 +125,13 @@ class common : UIViewController , NVActivityIndicatorViewable{
     @objc func POP() {
         self.navigationController?.popViewController(animated: true)
     }
-    
+    func addProductToCart(item: productData){
+            let cartItem = CartProduct(id: item.id, title: item.title, catID: item.catID, catName: item.catName, sectionName: item.sectionName, volumeName: item.volumeName, sizeName: item.sizeName, price: item.price, rate: item.rate, image: item.image, typeName: item.typeName, weightName: item.weightName,count: 1)
+            AppDelegate.CartProducts.append(cartItem)
+            let encodedData = NSKeyedArchiver.archivedData(withRootObject: AppDelegate.CartProducts)
+            let userDefaults = UserDefaults.standard
+            userDefaults.set(encodedData, forKey: "FullCartData")
+    }
    
     
     class func OpenSetting(){
@@ -141,11 +147,12 @@ class common : UIViewController , NVActivityIndicatorViewable{
         self.present(linkingVC,animated: true,completion: nil)
     }
     
-    func openProductDetails(productId : Int){
+    func openProductDetails(productId : Int,isFav : Bool){
         let storyboard = UIStoryboard(name: "productDetails", bundle: nil)
         let linkingVC = storyboard.instantiateViewController(withIdentifier: "productDetails")  as! UINavigationController
         let VC = linkingVC.viewControllers[0] as! productDetailsController
         VC.productId = productId
+        VC.isFav = isFav
         self.present(linkingVC, animated: true)
     }
     
@@ -167,9 +174,9 @@ class common : UIViewController , NVActivityIndicatorViewable{
    
 }
  extension common{
-    func addToFav(productId: Int, completion: @escaping (Bool) -> Void){
+    func addToFav(productId: Int,product: Bool, completion: @escaping (Bool) -> Void){
         self.loading()
-        let url = AppDelegate.LocalUrl + "product/addFav/product"
+        let url = AppDelegate.LocalUrl + "product/addFav/\(product == true ? "product":"market")"
         let headers = [
             "Content-Type": "application/json" ,
             "Accept" : "application/json",
@@ -206,9 +213,9 @@ class common : UIViewController , NVActivityIndicatorViewable{
             }
         }
     }
-    func getFavProducts(completion: @escaping ([productData]) -> Void){
+    func getFavProducts(markets: String? = "",completion: @escaping ([productData],[categoryData]) -> Void){
         self.loading()
-        let url = AppDelegate.LocalUrl + "product/getFav"
+        let url = AppDelegate.LocalUrl + "product/getFav\(markets ?? "")"
         let headers = [
             "lang": "en",
             "country_id": "187",
@@ -220,9 +227,16 @@ class common : UIViewController , NVActivityIndicatorViewable{
                 let decoder = JSONDecoder()
                 if error == nil {
                     if success {
-                        let dataRecived = try decoder.decode(productsJson.self, from: jsonData)
+                        if markets == ""{
+                            let dataRecived = try decoder.decode(productsJson.self, from: jsonData)
+                            
+                            completion(dataRecived.data?.data ?? [], [])
+                        }else{
+                            let dataRecived = try decoder.decode(categoryJson.self, from: jsonData)
+                            
+                            completion([],dataRecived.data?.categoryItems ?? [])
+                        }
                         
-                        completion(dataRecived.data?.data ?? [])
                         self.stopAnimating()
                     }else{
                         let dataRecived = try decoder.decode(ErrorHandle.self, from: jsonData)
@@ -242,9 +256,9 @@ class common : UIViewController , NVActivityIndicatorViewable{
         }
     }
     
-    func removeProductFromFav(productId: Int,completion: @escaping (Bool) -> Void){
+    func removeProductFromFav(product: Bool,productId: Int,completion: @escaping (Bool) -> Void){
         self.loading()
-        let url = AppDelegate.LocalUrl + "product/deleteFav/product/\(productId)"
+        let url = AppDelegate.LocalUrl + "product/deleteFav/\(product == true ? "product":"market")/\(productId)"
         let headers = [
             "lang": "en",
             "country_id": "187",
@@ -256,7 +270,6 @@ class common : UIViewController , NVActivityIndicatorViewable{
                 let decoder = JSONDecoder()
                 if error == nil {
                     if success {
-                        let dataRecived = try decoder.decode(productsJson.self, from: jsonData)
                         
                         completion(true)
                         self.stopAnimating()

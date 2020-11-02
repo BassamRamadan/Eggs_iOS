@@ -18,8 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static var isEnglish = true
     static var stringWithLink = ""
     static var LocalUrl = "https://www.eggs-apps.com/app/api/"
-    static var badge = [CAShapeLayer(),CAShapeLayer(),CAShapeLayer(),CAShapeLayer(),CAShapeLayer()]
-    static var firstBadge = [true,true,true,true,true]
+    static var badge = [CAShapeLayer()]
+    static var firstBadge = [true]
+    static var CartProducts = [CartProduct]()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
     
@@ -28,9 +29,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
    // GMSPlacesClient.provideAPIKey("AIzaSyCH41pwRsQKTf9IXYWxzbMA1V6cHHsmmZM")
     //    FirebaseApp.configure()
         CashedData.saveUserApiKey(token: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjUsImlzcyI6Imh0dHA6Ly9lZ2cubWUvYXBpL3VzZXJzL2F1dGgiLCJpYXQiOjE1OTgzNzA3MjIsImV4cCI6MTYwODg4MjcyMiwibmJmIjoxNTk4MzcwNzIyLCJqdGkiOiJZeDNieThCOE1URThWZ0huIn0.1KpTH8v6rtwP5yzJJcS9b_szfkBCYKy5qTziWJP_TMI")
+        
+        setupCartProducts()
         return true
     }
 
+    func setupCartProducts(){
+        if let decoded  = UserDefaults.standard.object(forKey: "FullCartData") as? Data{
+            AppDelegate.CartProducts = NSKeyedUnarchiver.unarchiveObject(with: decoded) as! [CartProduct]
+        }else{
+            let encodedData = NSKeyedArchiver.archivedData(withRootObject: [CartProduct]())
+            let userDefaults = UserDefaults.standard
+            userDefaults.set(encodedData, forKey: "FullCartData")
+            if let decoded  = UserDefaults.standard.object(forKey: "FullCartData") as? Data{
+                AppDelegate.CartProducts = NSKeyedUnarchiver.unarchiveObject(with: decoded) as! [CartProduct]
+            }
+        }
+    }
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

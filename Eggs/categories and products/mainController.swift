@@ -19,6 +19,8 @@ class mainController: ContentViewController {
     @IBOutlet var productsCount: UILabel!
     @IBOutlet var productsCategory: UILabel!
     
+    
+    
     var page = 1
     var categories: categoriesData?
     var products: productsData?
@@ -35,12 +37,18 @@ class mainController: ContentViewController {
     }
     func getMyFav(){
         getFavProducts{
-            data in
+            newFavProducts,data  in
             self.favProducts.removeAll()
-            self.favProducts.append(contentsOf: data)
+            self.favProducts.append(contentsOf: newFavProducts)
             if self.page == 2{
                 self.productsCollection.reloadData()
             }
+        }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if page == 2{
+            getMyFav()
         }
     }
     override func setupBackButtonWithPOP(_ pop:Bool? = true) {
@@ -79,7 +87,24 @@ class mainController: ContentViewController {
         categoriesView.isHidden = (page == 2)
         productsView.isHidden = (page != 2)
     }
-    
+}
+extension mainController{
+    @IBAction func addProductTo_MyFav(sender: UIButton){
+        let indx: Any? = favProducts.firstIndex(where: {$0.id == products?.data?[sender.tag].id ?? 0})
+        if indx == nil{
+            addToFav(productId: products?.data?[sender.tag].id ?? 0, product: true){
+                ok in
+                sender.setImage(#imageLiteral(resourceName: "ic_fav_active").withRenderingMode(.alwaysOriginal), for: .normal)
+                self.favProducts.append((self.products?.data?[sender.tag])!)
+            }
+        }else{
+            removeProductFromFav(product: true, productId: products?.data?[sender.tag].id ?? 0){
+                ok in
+                sender.setImage(#imageLiteral(resourceName: "ic_fav").withRenderingMode(.alwaysOriginal), for: .normal)
+                self.favProducts.remove(at: indx as! Int)
+            }
+        }
+    }
     @IBAction func openFilters(){
         if products?.data?.count ?? 0 > 0{
             let storyboard = UIStoryboard(name: "Filtering", bundle: nil)
@@ -90,9 +115,67 @@ class mainController: ContentViewController {
             self.present(linkingVC,animated: true,completion: nil)
         }
     }
-    
 }
 
+extension mainController: UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView == categoryCollection{
+            return categories?.categoryItems?.count ?? 0
+        }else{
+            return products?.data?.count ?? 0
+        }
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == categoryCollection{
+            return .init(width: collectionView.frame.width, height: 150)
+        }else{
+            return .init(width: (collectionView.frame.width - 10)/2, height: 310)
+        }
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if collectionView == categoryCollection{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "main", for: indexPath) as! categoryCell
+            if let dataCell = categories?.categoryItems?[indexPath.row]{
+                cell.title.text = dataCell.title ?? ""
+                cell.note.text = dataCell.note ?? ""
+                cell.image.sd_setImage(with: URL(string: dataCell.image ?? ""))
+            }
+            return cell
+        }else{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "details", for: indexPath) as! productCell
+            let data = products?.data?[indexPath.row]
+            cell.image.sd_setImage(with: URL(string: data?.image ?? ""))
+            cell.title.text = data?.title ?? ""
+            cell.fav.tag = indexPath.row
+            if favProducts.firstIndex(where: {$0.id == data?.id}) != nil{
+                cell.fav.setImage(#imageLiteral(resourceName: "ic_ac_fav_active").withRenderingMode(.alwaysOriginal), for: .normal)
+            }else{
+                cell.fav.setImage(#imageLiteral(resourceName: "ic_ac_fav").withRenderingMode(.alwaysOriginal), for: .normal)
+            }
+            cell.salary.text = data?.price ?? "0"
+            cell.rate.rating = Double(data?.rate ?? 0)
+            return cell
+        }
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        if collectionView == productsCollection{
+            let indx: Any? = favProducts.firstIndex(where: {$0.id == products?.data?[indexPath.row].id ?? 0})
+            openProductDetails(productId: products?.data?[indexPath.row].id ?? 0, isFav: indx != nil)
+        }else{
+            currentPageToAppear()
+             getProducts(categoryId: indexPath.row)
+        }
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        if collectionView == categoryCollection{
+            return 0
+        }else{
+            return 15
+        }
+    }
+}
 extension mainController {
     fileprivate func getCategory() {
         self.loading()
@@ -164,80 +247,6 @@ extension mainController {
             }catch {
                 self.present(common.makeAlert(), animated: true, completion: nil)
                 self.stopAnimating()
-            }
-        }
-    }
-}
-extension mainController: UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout{
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == categoryCollection{
-            return categories?.categoryItems?.count ?? 0
-        }else{
-            return products?.data?.count ?? 0
-        }
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == categoryCollection{
-            return .init(width: collectionView.frame.width, height: 150)
-        }else{
-            return .init(width: (collectionView.frame.width - 10)/2, height: 310)
-        }
-    }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        if collectionView == categoryCollection{
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "main", for: indexPath) as! categoryCell
-            if let dataCell = categories?.categoryItems?[indexPath.row]{
-                cell.title.text = dataCell.title ?? ""
-                cell.note.text = dataCell.note ?? ""
-                cell.image.sd_setImage(with: URL(string: dataCell.image ?? ""))
-            }
-            return cell
-        }else{
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "details", for: indexPath) as! productCell
-            let data = products?.data?[indexPath.row]
-            cell.image.sd_setImage(with: URL(string: data?.image ?? ""))
-            cell.title.text = data?.title ?? ""
-            cell.fav.tag = indexPath.row
-            if favProducts.firstIndex(where: {$0.id == data?.id}) != nil{
-                cell.fav.setImage(#imageLiteral(resourceName: "ic_ac_fav_active"), for: .normal)
-            }else{
-                cell.fav.setImage(#imageLiteral(resourceName: "ic_ac_fav"), for: .normal)
-            }
-            cell.salary.text = data?.price ?? "0"
-            cell.rate.rating = Double(data?.rate ?? 0)
-            return cell
-        }
-    }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
-        if collectionView == productsCollection{
-            openProductDetails(productId: products?.data?[indexPath.row].id ?? 0)
-        }else{
-            currentPageToAppear()
-             getProducts(categoryId: indexPath.row)
-        }
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        if collectionView == categoryCollection{
-            return 0
-        }else{
-            return 15
-        }
-    }
-    @IBAction func addProductTo_MyFav(sender: UIButton){
-        let indx: Any? = favProducts.firstIndex(where: {$0.id == products?.data?[sender.tag].id ?? 0})
-        if indx == nil{
-            addToFav(productId: products?.data?[sender.tag].id ?? 0){
-                ok in
-                sender.setImage(#imageLiteral(resourceName: "ic_fav_active"), for: .normal)
-                self.favProducts.append((self.products?.data?[sender.tag])!)
-            }
-        }else{
-            removeProductFromFav(productId: products?.data?[sender.tag].id ?? 0){
-                ok in
-                sender.setImage(#imageLiteral(resourceName: "ic_fav"), for: .normal)
-                self.favProducts.remove(at: indx as! Int)
             }
         }
     }

@@ -258,10 +258,10 @@
             </objects>
             <point key="canvasLocation" x="-2554" y="844"/>
         </scene>
-        <!--categories-->
+        <!--userTabBar-->
         <scene sceneID="gTL-9s-bUp">
             <objects>
-                <viewControllerPlaceholder storyboardName="categories" id="3mN-EC-0zD" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="userTabBar" id="3mN-EC-0zD" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="54J-fS-tzF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2014" y="976"/>

@@ -48,15 +48,17 @@ class categoriesData: Codable {
 // MARK: - Datum
 class categoryData: Codable {
     let id: Int?
-    let title, note: String?
+    let title, note, name: String?
     let image: String?
-    let products: Int?
+    let products,rate: Int?
     
-    init(id: Int?, title: String?, note: String?, image: String?, products: Int?) {
+    init(id: Int?, title: String?,name: String?, note: String?, image: String?, products: Int?, rate: Int?) {
         self.id = id
         self.title = title
         self.note = note
         self.image = image
         self.products = products
+        self.rate = rate
+        self.name = name
     }
 }

@@ -31,7 +31,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Ty-Wg-1bI">
-                                <rect key="frame" x="0.0" y="88" width="414" height="1618"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="1569"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wPp-z0-7KW">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="2086.5"/>
@@ -791,7 +791,7 @@
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dTq-Ue-h58" customClass="ViewShadow" customModule="Eggs" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="1706" width="414" height="60"/>
+                                <rect key="frame" x="0.0" y="1657" width="414" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Ceu-KA-KUX">
                                         <rect key="frame" x="85" y="18" width="164" height="34.5"/>
@@ -828,7 +828,7 @@
                                             <constraint firstAttribute="width" constant="30" id="zsT-m2-0qd"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kty-19-QrJ">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kty-19-QrJ">
                                         <rect key="frame" x="45" y="4.5" width="25" height="25"/>
                                         <color key="backgroundColor" name="red"/>
                                         <constraints>
@@ -873,14 +873,24 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aHu-U8-PIj"/>
                     </view>
-                    <navigationItem key="navigationItem" id="b6n-tn-9vL"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="b6n-tn-9vL">
+                        <barButtonItem key="rightBarButtonItem" image="ic_fav" id="ci6-pF-jwx">
+                            <connections>
+                                <action selector="addProductTo_MyFavWithSender:" destination="frW-gs-F2H" id="ncq-ei-3hw"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <size key="freeformSize" width="414" height="1800"/>
                     <connections>
+                        <outlet property="CartProductNumber" destination="Kty-19-QrJ" id="i99-1J-GwT"/>
                         <outlet property="brand" destination="3xU-je-vs0" id="nXW-2d-qnE"/>
                         <outlet property="brand2" destination="myz-pg-TSb" id="GfB-mC-9wQ"/>
                         <outlet property="brandImage" destination="1QR-g7-JqE" id="Wwq-jV-1Mr"/>
                         <outlet property="categoryName" destination="7xa-gk-Lc2" id="7Ov-3b-2SS"/>
                         <outlet property="code" destination="PDe-AP-F9w" id="6gk-Yx-fBt"/>
+                        <outlet property="fav" destination="ci6-pF-jwx" id="fJs-9f-T3c"/>
                         <outlet property="littleInfo" destination="1Uj-wg-P53" id="fS2-3x-sLP"/>
                         <outlet property="name" destination="cKw-CZ-Apa" id="KjO-IO-uA2"/>
                         <outlet property="note" destination="MBt-eK-e8J" id="je8-fa-Dbg"/>
@@ -927,6 +937,7 @@
         <image name="chicken_1" width="500" height="500"/>
         <image name="ic_add_cart" width="24" height="24"/>
         <image name="ic_cart_bar" width="24" height="24"/>
+        <image name="ic_fav" width="24" height="24"/>
         <image name="ic_favorite" width="22" height="22"/>
         <image name="ic_me_left_arrow" width="20" height="20"/>
         <image name="ic_me_right_arrow" width="20" height="20"/>
