@@ -225,31 +225,31 @@
                                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="details" id="W1R-ax-biG" customClass="productCell" customModule="Eggs" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="products" id="aBG-2L-TgB" customClass="productCell" customModule="Eggs" customModuleProvider="target">
                                                                 <rect key="frame" x="85.5" y="0.0" width="203" height="438"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                                     <rect key="frame" x="0.0" y="0.0" width="203" height="438"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
-                                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QXj-aK-EE3" customClass="ViewShadow" customModule="Eggs" customModuleProvider="target">
+                                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gSF-ro-Ufk" customClass="ViewShadow" customModule="Eggs" customModuleProvider="target">
                                                                             <rect key="frame" x="0.0" y="0.0" width="203" height="438"/>
                                                                             <subviews>
-                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xqS-iq-6aR">
+                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kow-w9-o6L">
                                                                                     <rect key="frame" x="169" y="10" width="24" height="24"/>
                                                                                     <constraints>
-                                                                                        <constraint firstAttribute="height" constant="24" id="4rE-B2-lhh"/>
-                                                                                        <constraint firstAttribute="width" constant="24" id="u4K-YU-BTw"/>
+                                                                                        <constraint firstAttribute="width" constant="24" id="erT-Hm-myN"/>
+                                                                                        <constraint firstAttribute="height" constant="24" id="q77-Kw-T8E"/>
                                                                                     </constraints>
                                                                                     <state key="normal" image="ic_favorite"/>
                                                                                     <connections>
-                                                                                        <action selector="addProductTo_MyFavWithSender:" destination="JGu-UP-791" eventType="touchUpInside" id="2xE-xq-l3K"/>
+                                                                                        <action selector="addProductTo_MyFavWithSender:" destination="JGu-UP-791" eventType="touchUpInside" id="u3q-eZ-jOx"/>
                                                                                     </connections>
                                                                                 </button>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chicken_1" translatesAutoresizingMaskIntoConstraints="NO" id="HCp-cA-Gne" customClass="SDAnimatedImageView">
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chicken_1" translatesAutoresizingMaskIntoConstraints="NO" id="i1k-ON-UvR" customClass="SDAnimatedImageView">
                                                                                     <rect key="frame" x="20" y="39" width="163" height="125"/>
                                                                                     <constraints>
-                                                                                        <constraint firstAttribute="height" constant="125" id="6u9-uT-qkc"/>
+                                                                                        <constraint firstAttribute="height" constant="125" id="wyJ-Y3-fs1"/>
                                                                                     </constraints>
                                                                                     <userDefinedRuntimeAttributes>
                                                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -257,22 +257,22 @@
                                                                                         </userDefinedRuntimeAttribute>
                                                                                     </userDefinedRuntimeAttributes>
                                                                                 </imageView>
-                                                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="gdh-Jl-pWl">
+                                                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="KpK-Eu-sza">
                                                                                     <rect key="frame" x="20" y="174" width="163" height="238"/>
                                                                                     <subviews>
-                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0oO-0U-u7e">
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SsW-KJ-4fe">
                                                                                             <rect key="frame" x="0.0" y="0.0" width="163" height="27"/>
                                                                                             <fontDescription key="fontDescription" name="DroidArabicNaskh-Bold" family="Droid Arabic Naskh" pointSize="14"/>
                                                                                             <color key="textColor" name="bold"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
-                                                                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="qZM-al-LTJ">
+                                                                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="KZM-ha-i0A">
                                                                                             <rect key="frame" x="0.0" y="27" width="163" height="149"/>
                                                                                             <subviews>
-                                                                                                <view contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Nhu-Ve-I1G" customClass="CosmosView" customModule="Cosmos">
+                                                                                                <view userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="0Oi-3W-yOV" customClass="CosmosView" customModule="Cosmos">
                                                                                                     <rect key="frame" x="0.0" y="64.5" width="105" height="20"/>
                                                                                                     <constraints>
-                                                                                                        <constraint firstAttribute="height" constant="20" id="hqc-Te-9Vy"/>
+                                                                                                        <constraint firstAttribute="height" constant="20" id="Vnz-eQ-ZvV"/>
                                                                                                     </constraints>
                                                                                                     <userDefinedRuntimeAttributes>
                                                                                                         <userDefinedRuntimeAttribute type="color" keyPath="emptyColor">
@@ -286,7 +286,7 @@
                                                                                                         </userDefinedRuntimeAttribute>
                                                                                                     </userDefinedRuntimeAttributes>
                                                                                                 </view>
-                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="60%" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="udd-EG-uaD">
+                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="60%" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Yq-Vt-yCI">
                                                                                                     <rect key="frame" x="110" y="62" width="53" height="25"/>
                                                                                                     <fontDescription key="fontDescription" name="DroidArabicNaskh" family="Droid Arabic Naskh" pointSize="13"/>
                                                                                                     <color key="textColor" name="bold"/>
@@ -294,25 +294,25 @@
                                                                                                 </label>
                                                                                             </subviews>
                                                                                         </stackView>
-                                                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="TX7-Kp-hQb">
+                                                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="X9G-qy-ETU">
                                                                                             <rect key="frame" x="0.0" y="176" width="163" height="31"/>
                                                                                             <subviews>
-                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fvX-O9-PZy">
+                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3EZ-yE-VYu">
                                                                                                     <rect key="frame" x="0.0" y="0.0" width="30.5" height="31"/>
                                                                                                     <fontDescription key="fontDescription" name="DroidArabicNaskh" family="Droid Arabic Naskh" pointSize="16"/>
                                                                                                     <color key="textColor" name="bold"/>
                                                                                                     <nil key="highlightedColor"/>
                                                                                                 </label>
-                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QUM-wz-5Xb">
+                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pu7-xb-0S7">
                                                                                                     <rect key="frame" x="35.5" y="0.0" width="4" height="31"/>
                                                                                                     <constraints>
-                                                                                                        <constraint firstAttribute="width" constant="4" id="MkO-x7-4pr"/>
+                                                                                                        <constraint firstAttribute="width" constant="4" id="rRN-yX-iy2"/>
                                                                                                     </constraints>
                                                                                                     <fontDescription key="fontDescription" name="DroidArabicNaskh" family="Droid Arabic Naskh" pointSize="16"/>
                                                                                                     <color key="textColor" name="bold"/>
                                                                                                     <nil key="highlightedColor"/>
                                                                                                 </label>
-                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="120 gm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zX4-na-296">
+                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="120 gm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mCa-fZ-RWp">
                                                                                                     <rect key="frame" x="44.5" y="0.0" width="118.5" height="31"/>
                                                                                                     <fontDescription key="fontDescription" name="DroidArabicNaskh" family="Droid Arabic Naskh" pointSize="16"/>
                                                                                                     <color key="textColor" name="bold"/>
@@ -320,16 +320,16 @@
                                                                                                 </label>
                                                                                             </subviews>
                                                                                         </stackView>
-                                                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="fgF-QN-nOa">
+                                                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="UfV-Ef-8sz">
                                                                                             <rect key="frame" x="0.0" y="207" width="163" height="31"/>
                                                                                             <subviews>
-                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="120" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qee-Qx-Fe7">
+                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="120" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lbI-N4-WZv">
                                                                                                     <rect key="frame" x="0.0" y="0.0" width="27" height="31"/>
                                                                                                     <fontDescription key="fontDescription" name="DroidArabicNaskh-Bold" family="Droid Arabic Naskh" pointSize="16"/>
                                                                                                     <color key="textColor" name="blue"/>
                                                                                                     <nil key="highlightedColor"/>
                                                                                                 </label>
-                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SAR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i74-fh-ndf">
+                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SAR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jyk-Bf-NrC">
                                                                                                     <rect key="frame" x="32" y="0.0" width="131" height="31"/>
                                                                                                     <fontDescription key="fontDescription" name="DroidArabicNaskh" family="Droid Arabic Naskh" pointSize="13"/>
                                                                                                     <color key="textColor" name="bold"/>
@@ -342,15 +342,15 @@
                                                                             </subviews>
                                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
-                                                                                <constraint firstItem="gdh-Jl-pWl" firstAttribute="leading" secondItem="QXj-aK-EE3" secondAttribute="leading" constant="20" id="AwI-sr-KoL"/>
-                                                                                <constraint firstItem="HCp-cA-Gne" firstAttribute="leading" secondItem="QXj-aK-EE3" secondAttribute="leading" constant="20" id="E3Q-J3-PQP"/>
-                                                                                <constraint firstAttribute="trailing" secondItem="gdh-Jl-pWl" secondAttribute="trailing" constant="20" id="IlS-2P-3dA"/>
-                                                                                <constraint firstItem="gdh-Jl-pWl" firstAttribute="top" secondItem="HCp-cA-Gne" secondAttribute="bottom" constant="10" id="KN6-Rn-Iks"/>
-                                                                                <constraint firstItem="xqS-iq-6aR" firstAttribute="trailing" secondItem="QXj-aK-EE3" secondAttribute="trailing" constant="-10" id="Ue3-fm-q8u"/>
-                                                                                <constraint firstAttribute="trailing" secondItem="HCp-cA-Gne" secondAttribute="trailing" constant="20" id="Uz8-vq-C8u"/>
-                                                                                <constraint firstAttribute="height" secondItem="gdh-Jl-pWl" secondAttribute="height" constant="200" id="nIu-rr-Lhd"/>
-                                                                                <constraint firstItem="xqS-iq-6aR" firstAttribute="top" secondItem="QXj-aK-EE3" secondAttribute="top" constant="10" id="sNo-Ee-iUL"/>
-                                                                                <constraint firstItem="HCp-cA-Gne" firstAttribute="top" secondItem="xqS-iq-6aR" secondAttribute="bottom" constant="5" id="wM8-EB-alm"/>
+                                                                                <constraint firstItem="KpK-Eu-sza" firstAttribute="top" secondItem="i1k-ON-UvR" secondAttribute="bottom" constant="10" id="1Xi-bn-gex"/>
+                                                                                <constraint firstItem="KpK-Eu-sza" firstAttribute="leading" secondItem="gSF-ro-Ufk" secondAttribute="leading" constant="20" id="1nY-rV-KY6"/>
+                                                                                <constraint firstItem="i1k-ON-UvR" firstAttribute="leading" secondItem="gSF-ro-Ufk" secondAttribute="leading" constant="20" id="Cib-Pa-PBV"/>
+                                                                                <constraint firstItem="Kow-w9-o6L" firstAttribute="trailing" secondItem="gSF-ro-Ufk" secondAttribute="trailing" constant="-10" id="ExT-NO-7mS"/>
+                                                                                <constraint firstAttribute="trailing" secondItem="i1k-ON-UvR" secondAttribute="trailing" constant="20" id="I7F-FM-hqs"/>
+                                                                                <constraint firstItem="Kow-w9-o6L" firstAttribute="top" secondItem="gSF-ro-Ufk" secondAttribute="top" constant="10" id="dIM-TU-PrC"/>
+                                                                                <constraint firstAttribute="height" secondItem="KpK-Eu-sza" secondAttribute="height" constant="200" id="i1K-lB-4IW"/>
+                                                                                <constraint firstAttribute="trailing" secondItem="KpK-Eu-sza" secondAttribute="trailing" constant="20" id="osu-6k-Fo2"/>
+                                                                                <constraint firstItem="i1k-ON-UvR" firstAttribute="top" secondItem="Kow-w9-o6L" secondAttribute="bottom" constant="5" id="rDb-al-epz"/>
                                                                             </constraints>
                                                                             <userDefinedRuntimeAttributes>
                                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -361,25 +361,26 @@
                                                                     </subviews>
                                                                 </view>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="bottom" secondItem="QXj-aK-EE3" secondAttribute="bottom" id="PFi-Xb-Qvy"/>
-                                                                    <constraint firstItem="QXj-aK-EE3" firstAttribute="leading" secondItem="W1R-ax-biG" secondAttribute="leading" id="VKk-KW-W1m"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="QXj-aK-EE3" secondAttribute="trailing" id="nXt-Y5-RPa"/>
-                                                                    <constraint firstItem="QXj-aK-EE3" firstAttribute="top" secondItem="W1R-ax-biG" secondAttribute="top" id="qb6-tm-GiY"/>
+                                                                    <constraint firstItem="gSF-ro-Ufk" firstAttribute="leading" secondItem="aBG-2L-TgB" secondAttribute="leading" id="cCy-Wv-UP0"/>
+                                                                    <constraint firstItem="gSF-ro-Ufk" firstAttribute="top" secondItem="aBG-2L-TgB" secondAttribute="top" id="cgK-S3-e4l"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="gSF-ro-Ufk" secondAttribute="trailing" id="icT-S5-CxH"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="gSF-ro-Ufk" secondAttribute="bottom" id="jhm-Fi-6AJ"/>
                                                                 </constraints>
+                                                                <viewLayoutGuide key="safeArea" id="SJY-lz-01Z"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                         <integer key="value" value="10"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                                 <connections>
-                                                                    <outlet property="coin" destination="i74-fh-ndf" id="n75-pu-pSK"/>
-                                                                    <outlet property="fav" destination="xqS-iq-6aR" id="YgQ-KC-Q2U"/>
-                                                                    <outlet property="image" destination="HCp-cA-Gne" id="Lz3-Kc-lde"/>
-                                                                    <outlet property="rate" destination="Nhu-Ve-I1G" id="VNO-wQ-4yN"/>
-                                                                    <outlet property="salary" destination="qee-Qx-Fe7" id="Taj-om-uNU"/>
-                                                                    <outlet property="title" destination="0oO-0U-u7e" id="Mfa-vO-vep"/>
-                                                                    <outlet property="type" destination="fvX-O9-PZy" id="kb1-UU-kj6"/>
-                                                                    <outlet property="users" destination="udd-EG-uaD" id="nnM-ya-QEu"/>
+                                                                    <outlet property="coin" destination="jyk-Bf-NrC" id="GaQ-dZ-lIG"/>
+                                                                    <outlet property="fav" destination="Kow-w9-o6L" id="cGc-TW-b1s"/>
+                                                                    <outlet property="image" destination="i1k-ON-UvR" id="kqp-Sn-JQZ"/>
+                                                                    <outlet property="rate" destination="0Oi-3W-yOV" id="zIQ-91-oEg"/>
+                                                                    <outlet property="salary" destination="lbI-N4-WZv" id="tRO-Oj-aSh"/>
+                                                                    <outlet property="title" destination="SsW-KJ-4fe" id="c4D-7Q-fGX"/>
+                                                                    <outlet property="type" destination="3EZ-yE-VYu" id="MuP-j4-w3K"/>
+                                                                    <outlet property="users" destination="0Yq-Vt-yCI" id="rzE-hX-1ap"/>
                                                                 </connections>
                                                             </collectionViewCell>
                                                         </cells>

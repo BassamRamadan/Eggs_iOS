@@ -47,7 +47,12 @@ class productDetailsController: common{
         relatedCollection.dataSource = self
         getProductDetails()
         rate2.didFinishTouchingCosmos = { rating in
-            self.rateAsNumber.text = "\((rating))"
+            self.addRate(productId: self.productId, rate: rating, isProduct: true){
+                ok in
+                if ok{
+                    self.rateAsNumber.text = "\((rating))"
+                }
+            }
         }
         
         CartProductNumber.text = "\(AppDelegate.CartProducts.count)"

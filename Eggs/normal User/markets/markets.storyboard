@@ -157,7 +157,7 @@
                                                                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Xpv-w8-kd2">
                                                                                                     <rect key="frame" x="0.0" y="61.5" width="252.5" height="25"/>
                                                                                                     <subviews>
-                                                                                                        <view contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="ApK-xM-mHb" customClass="CosmosView" customModule="Cosmos">
+                                                                                                        <view userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="ApK-xM-mHb" customClass="CosmosView" customModule="Cosmos">
                                                                                                             <rect key="frame" x="0.0" y="2.5" width="105" height="20"/>
                                                                                                             <constraints>
                                                                                                                 <constraint firstAttribute="height" constant="20" id="igO-f6-lmM"/>

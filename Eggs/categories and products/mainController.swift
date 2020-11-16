@@ -20,7 +20,7 @@ class mainController: ContentViewController {
     @IBOutlet var productsCategory: UILabel!
     
     
-    
+    var categoryId: Int = 0
     var page = 1
     var categories: categoriesData?
     var products: productsData?
@@ -28,9 +28,9 @@ class mainController: ContentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        collectionViewaDelegation()
         categoriesView.isHidden = false
         productsView.isHidden = true
-        collectionViewaDelegation()
         getCategory()
         getMyFav()
         setupBackButtonWithPOP()
@@ -49,6 +49,17 @@ class mainController: ContentViewController {
         super.viewWillAppear(animated)
         if page == 2{
             getMyFav()
+            callProducts()
+        }
+    }
+    fileprivate func  callProducts(){
+        let url = AppDelegate.LocalUrl + "product?cat_id=\(categories?.categoryItems?[categoryId].id ?? 0)"
+        getProducts(url: url){
+            data in
+            self.products = data
+            self.productsCollection.reloadData()
+            self.productsCount.text = "\(self.products?.data?.count ?? 0)"
+            self.productsCategory.text = self.categories?.categoryItems?[self.categoryId].title
         }
     }
     override func setupBackButtonWithPOP(_ pop:Bool? = true) {
@@ -90,7 +101,7 @@ class mainController: ContentViewController {
 }
 extension mainController{
     @IBAction func addProductTo_MyFav(sender: UIButton){
-        let indx: Any? = favProducts.firstIndex(where: {$0.id == products?.data?[sender.tag].id ?? 0})
+         let indx: Any? = favProducts.firstIndex(where: {$0.id == products?.data?[sender.tag].id ?? 0})
         if indx == nil{
             addToFav(productId: products?.data?[sender.tag].id ?? 0, product: true){
                 ok in
@@ -143,18 +154,11 @@ extension mainController: UICollectionViewDelegate , UICollectionViewDataSource 
             }
             return cell
         }else{
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "details", for: indexPath) as! productCell
-            let data = products?.data?[indexPath.row]
-            cell.image.sd_setImage(with: URL(string: data?.image ?? ""))
-            cell.title.text = data?.title ?? ""
-            cell.fav.tag = indexPath.row
-            if favProducts.firstIndex(where: {$0.id == data?.id}) != nil{
-                cell.fav.setImage(#imageLiteral(resourceName: "ic_ac_fav_active").withRenderingMode(.alwaysOriginal), for: .normal)
-            }else{
-                cell.fav.setImage(#imageLiteral(resourceName: "ic_ac_fav").withRenderingMode(.alwaysOriginal), for: .normal)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "products", for: indexPath) as! productCell
+            if let data = products?.data?[indexPath.row]{
+                cell.fav.tag = indexPath.row
+                cell.setupCellData(data: data, isFav: favProducts.firstIndex(where: {$0.id == data.id}) != nil)
             }
-            cell.salary.text = data?.price ?? "0"
-            cell.rate.rating = Double(data?.rate ?? 0)
             return cell
         }
     }
@@ -164,8 +168,9 @@ extension mainController: UICollectionViewDelegate , UICollectionViewDataSource 
             let indx: Any? = favProducts.firstIndex(where: {$0.id == products?.data?[indexPath.row].id ?? 0})
             openProductDetails(productId: products?.data?[indexPath.row].id ?? 0, isFav: indx != nil)
         }else{
+            categoryId = indexPath.row
             currentPageToAppear()
-             getProducts(categoryId: indexPath.row)
+            callProducts()
         }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -213,41 +218,5 @@ extension mainController {
             }
         }
     }
-    fileprivate func getProducts(categoryId: Int) {
-        self.loading()
-        let url = AppDelegate.LocalUrl + "product?cat_id=\(categories?.categoryItems?[categoryId].id ?? 0)"
-        let headers = [
-            "Content-Type": "application/json" ,
-            "Accept" : "application/json",
-            "lang": "en",
-            "country_id": "187"
-        ]
-        AlamofireRequests.getMethod(url: url,headers: headers){
-            (error, success, jsonData) in
-            do {
-                let decoder = JSONDecoder()
-                if error == nil {
-                    if success {
-                        let dataRecived = try decoder.decode(productsJson.self, from: jsonData)
-                        self.products = dataRecived.data
-                        self.productsCollection.reloadData()
-                        self.productsCount.text = "\(self.products?.data?.count ?? 0)"
-                        self.productsCategory.text = self.categories?.categoryItems?[categoryId].title
-                        self.stopAnimating()
-                    }else{
-                        let dataRecived = try decoder.decode(ErrorHandle.self, from: jsonData)
-                        self.present(common.makeAlert(message: dataRecived.message ?? ""), animated: true, completion: nil)
-                        self.stopAnimating()
-                    }
-                }else{
-                    let dataRecived = try decoder.decode(ErrorHandle.self, from: jsonData)
-                    self.present(common.makeAlert(message: dataRecived.message ?? ""), animated: true, completion: nil)
-                    self.stopAnimating()
-                }
-            }catch {
-                self.present(common.makeAlert(), animated: true, completion: nil)
-                self.stopAnimating()
-            }
-        }
-    }
+    
 }

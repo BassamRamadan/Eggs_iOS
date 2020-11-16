@@ -130,10 +130,10 @@
             </objects>
             <point key="canvasLocation" x="2202" y="1718"/>
         </scene>
-        <!--categories-->
+        <!--profile-->
         <scene sceneID="zVw-XZ-Mfo">
             <objects>
-                <viewControllerPlaceholder storyboardName="categories" id="a1I-cr-mXN" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="profile" id="a1I-cr-mXN" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="ilt-L0-iBP"/>
                     <navigationItem key="navigationItem" id="zj5-fv-okK"/>
                 </viewControllerPlaceholder>

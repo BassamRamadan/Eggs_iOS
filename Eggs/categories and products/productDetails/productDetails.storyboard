@@ -85,7 +85,7 @@
                                                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Cx8-Jn-h81">
                                                                                 <rect key="frame" x="0.0" y="62" width="374" height="227"/>
                                                                                 <subviews>
-                                                                                    <view contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="KeW-gR-hjm" customClass="CosmosView" customModule="Cosmos">
+                                                                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="KeW-gR-hjm" customClass="CosmosView" customModule="Cosmos">
                                                                                         <rect key="frame" x="0.0" y="103.5" width="105" height="20"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="height" constant="20" id="o9H-L7-nF1"/>

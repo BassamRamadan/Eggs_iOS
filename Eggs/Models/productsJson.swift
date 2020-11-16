@@ -51,9 +51,9 @@ class productData: Codable {
     let rate: Int?
     let image: String?
     let typeName, weightName: String?
-    
+    let isFav: Bool?
     enum CodingKeys: String, CodingKey {
-        case id, title
+        case id, title, isFav
         case catID = "cat_id"
         case catName = "cat_name"
         case sectionName = "section_name"
@@ -64,7 +64,7 @@ class productData: Codable {
         case weightName = "weight_name"
     }
     
-    init(id: Int?, title: String?, catID: String?, catName: String?, sectionName: String?, volumeName: String?, sizeName: String?, price: String?, rate: Int?, image: String?, typeName: String?, weightName: String?) {
+    init(id: Int?, title: String?, catID: String?, catName: String?, sectionName: String?, volumeName: String?, sizeName: String?, price: String?, rate: Int?, image: String?, typeName: String?, weightName: String?,isFav: Bool? = false) {
         self.id = id
         self.title = title
         self.catID = catID
@@ -77,5 +77,6 @@ class productData: Codable {
         self.image = image
         self.typeName = typeName
         self.weightName = weightName
+        self.isFav = isFav
     }
 }

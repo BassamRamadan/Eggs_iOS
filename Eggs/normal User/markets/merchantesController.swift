@@ -52,7 +52,7 @@ extension markets: UICollectionViewDelegate , UICollectionViewDataSource , UICol
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "marketsCell", for: indexPath) as! marketCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "marketsCell", for: indexPath) as! merchantCell
         if let dataCell = marketsData?.categoryItems?[indexPath.row]{
             cell.title.text = dataCell.name ?? ""
             cell.note.text = dataCell.note ?? ""
@@ -70,9 +70,9 @@ extension markets: UICollectionViewDelegate , UICollectionViewDataSource , UICol
         
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: "marketProfile", bundle: nil)
-        let linkingVC = storyboard.instantiateViewController(withIdentifier: "marketProfile")  as! UINavigationController
-        let VC = linkingVC.viewControllers[0] as! marketProfile
+        let storyboard = UIStoryboard(name: "merchantProfile", bundle: nil)
+        let linkingVC = storyboard.instantiateViewController(withIdentifier: "merchantProfile")  as! UINavigationController
+        let VC = linkingVC.viewControllers[0] as! merchantProfile
         VC.marketData = marketsData?.categoryItems?[indexPath.row]
         self.present(linkingVC, animated: true)
     }

@@ -213,6 +213,41 @@ class common : UIViewController , NVActivityIndicatorViewable{
             }
         }
     }
+    
+    func removeProductFromFav(product: Bool,productId: Int,completion: @escaping (Bool) -> Void){
+        self.loading()
+        let url = AppDelegate.LocalUrl + "product/deleteFav/\(product == true ? "product":"market")/\(productId)"
+        let headers = [
+            "lang": "en",
+            "country_id": "187",
+            "Authorization": (CashedData.getUserApiKey() ?? "")
+        ]
+        AlamofireRequests.getMethod(url: url, headers: headers){
+            (error, success, jsonData) in
+            do {
+                let decoder = JSONDecoder()
+                if error == nil {
+                    if success {
+                        
+                        completion(true)
+                        self.stopAnimating()
+                    }else{
+                        let dataRecived = try decoder.decode(ErrorHandle.self, from: jsonData)
+                        self.present(common.makeAlert(message: dataRecived.message ?? ""), animated: true, completion: nil)
+                        self.stopAnimating()
+                    }
+                    
+                }else{
+                    let dataRecived = try decoder.decode(ErrorHandle.self, from: jsonData)
+                    self.present(common.makeAlert(message: dataRecived.message ?? ""), animated: true, completion: nil)
+                    self.stopAnimating()
+                }
+            }catch {
+                self.present(common.makeAlert(), animated: true, completion: nil)
+                self.stopAnimating()
+            }
+        }
+    }
     func getFavProducts(markets: String? = "",completion: @escaping ([productData],[categoryData]) -> Void){
         self.loading()
         let url = AppDelegate.LocalUrl + "product/getFav\(markets ?? "")"
@@ -256,29 +291,64 @@ class common : UIViewController , NVActivityIndicatorViewable{
         }
     }
     
-    func removeProductFromFav(product: Bool,productId: Int,completion: @escaping (Bool) -> Void){
+    func getProducts(url: String,completion: @escaping (productsData) -> Void) {
         self.loading()
-        let url = AppDelegate.LocalUrl + "product/deleteFav/\(product == true ? "product":"market")/\(productId)"
         let headers = [
+            "Content-Type": "application/json" ,
+            "Accept" : "application/json",
             "lang": "en",
-            "country_id": "187",
-            "Authorization": (CashedData.getUserApiKey() ?? "")
+            "country_id": "187"
         ]
-        AlamofireRequests.getMethod(url: url, headers: headers){
+        AlamofireRequests.getMethod(url: url,headers: headers){
             (error, success, jsonData) in
             do {
                 let decoder = JSONDecoder()
                 if error == nil {
                     if success {
-                        
-                        completion(true)
+                        let dataRecived = try decoder.decode(productsJson.self, from: jsonData)
+                        completion(dataRecived.data!)
                         self.stopAnimating()
                     }else{
                         let dataRecived = try decoder.decode(ErrorHandle.self, from: jsonData)
                         self.present(common.makeAlert(message: dataRecived.message ?? ""), animated: true, completion: nil)
                         self.stopAnimating()
                     }
-                    
+                }else{
+                    let dataRecived = try decoder.decode(ErrorHandle.self, from: jsonData)
+                    self.present(common.makeAlert(message: dataRecived.message ?? ""), animated: true, completion: nil)
+                    self.stopAnimating()
+                }
+            }catch {
+                self.present(common.makeAlert(), animated: true, completion: nil)
+                self.stopAnimating()
+            }
+        }
+    }
+    func addRate(productId: Int,rate: Double,isProduct: Bool, completion: @escaping (Bool) -> Void){
+        self.loading()
+        let url = AppDelegate.LocalUrl + "product/\(isProduct == true ? "rateProduct":"rateMarket")"
+        let headers = [
+            "Content-Type": "application/json" ,
+            "Accept" : "application/json",
+            "lang": "en",
+            "country_id": "187",
+            "Authorization": (CashedData.getUserApiKey() ?? "")
+        ]
+        let info = [
+            "id": productId,
+            "rate": rate
+            ] as [String : Any]
+        AlamofireRequests.PostMethod(methodType: "POST", url: url, info: info, headers: headers){
+            (error, success, jsonData) in
+            do {
+                let decoder = JSONDecoder()
+                if error == nil {
+                    let dataRecived = try decoder.decode(ErrorHandle.self, from: jsonData)
+                    self.present(common.makeAlert(message: dataRecived.message ?? ""), animated: true, completion: nil)
+                    if dataRecived.status == true{
+                        completion(true)
+                    }
+                    self.stopAnimating()
                 }else{
                     let dataRecived = try decoder.decode(ErrorHandle.self, from: jsonData)
                     self.present(common.makeAlert(message: dataRecived.message ?? ""), animated: true, completion: nil)
@@ -392,4 +462,9 @@ extension UIButton{
         }
     }
     
+}
+class SubclassedUIButton: UIButton {
+    var typeCell: String?
+    var indexPath: IndexPath?
+    var isFav: Bool?
 }
