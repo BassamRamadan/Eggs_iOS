@@ -174,6 +174,7 @@ class common : UIViewController , NVActivityIndicatorViewable{
    
 }
  extension common{
+    
     func addToFav(productId: Int,product: Bool, completion: @escaping (Bool) -> Void){
         self.loading()
         let url = AppDelegate.LocalUrl + "product/addFav/\(product == true ? "product":"market")"

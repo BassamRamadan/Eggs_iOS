@@ -25,15 +25,27 @@ class mainController: ContentViewController {
     var categories: categoriesData?
     var products: productsData?
     var favProducts = [productData]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         collectionViewaDelegation()
-        categoriesView.isHidden = false
-        productsView.isHidden = true
         getCategory()
         getMyFav()
         setupBackButtonWithPOP()
+    }
+    func someMethodsWantToCall(cell: UICollectionViewCell,isFav: Bool){
+        guard let cell = cell as? productCell else {
+            return
+        }
+        let indexPath = productsCollection.indexPath(for: cell)!
+        if isFav{
+            favProducts.append((self.products?.data?[indexPath.row])!)
+        }else{
+            let indx: Any? = favProducts.firstIndex(where: {$0.id == (products?.data?[indexPath.row].id ?? 0)})
+            if indx != nil {favProducts.remove(at: indx as! Int)}
+        }
+        productsCollection.reloadItems(at: [indexPath])
     }
     func getMyFav(){
         getFavProducts{
@@ -78,10 +90,14 @@ class mainController: ContentViewController {
     }
 
     fileprivate func collectionViewaDelegation() {
+        productsCollection.register(UINib(nibName: "productsCollectionView", bundle: nil), forCellWithReuseIdentifier: "products")
         categoryCollection.delegate = self
         categoryCollection.dataSource = self
         productsCollection.delegate = self
         productsCollection.dataSource = self
+    
+        categoriesView.isHidden = false
+        productsView.isHidden = true
     }
     fileprivate func currentPageToAppear(_ next: Bool? = true){
         if (next == true){
@@ -98,24 +114,6 @@ class mainController: ContentViewController {
         categoriesView.isHidden = (page == 2)
         productsView.isHidden = (page != 2)
     }
-}
-extension mainController{
-    @IBAction func addProductTo_MyFav(sender: UIButton){
-         let indx: Any? = favProducts.firstIndex(where: {$0.id == products?.data?[sender.tag].id ?? 0})
-        if indx == nil{
-            addToFav(productId: products?.data?[sender.tag].id ?? 0, product: true){
-                ok in
-                sender.setImage(#imageLiteral(resourceName: "ic_fav_active").withRenderingMode(.alwaysOriginal), for: .normal)
-                self.favProducts.append((self.products?.data?[sender.tag])!)
-            }
-        }else{
-            removeProductFromFav(product: true, productId: products?.data?[sender.tag].id ?? 0){
-                ok in
-                sender.setImage(#imageLiteral(resourceName: "ic_fav").withRenderingMode(.alwaysOriginal), for: .normal)
-                self.favProducts.remove(at: indx as! Int)
-            }
-        }
-    }
     @IBAction func openFilters(){
         if products?.data?.count ?? 0 > 0{
             let storyboard = UIStoryboard(name: "Filtering", bundle: nil)
@@ -127,7 +125,6 @@ extension mainController{
         }
     }
 }
-
 extension mainController: UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == categoryCollection{
@@ -155,8 +152,9 @@ extension mainController: UICollectionViewDelegate , UICollectionViewDataSource 
             return cell
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "products", for: indexPath) as! productCell
+            cell.addToCart.isHidden = true
             if let data = products?.data?[indexPath.row]{
-                cell.fav.tag = indexPath.row
+                cell.link = self
                 cell.setupCellData(data: data, isFav: favProducts.firstIndex(where: {$0.id == data.id}) != nil)
             }
             return cell

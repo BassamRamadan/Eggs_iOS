@@ -40,12 +40,17 @@ class productDetailsController: common{
     var isFav = false
     var productId = 0
     var product: productDetails?
+    var favProducts = [productData]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        relatedCollection.delegate = self
-        relatedCollection.dataSource = self
+        
+        setupViews()
+        setupBackButtonWithPOP(false)
         getProductDetails()
+    }
+    fileprivate func setupViews(){
         rate2.didFinishTouchingCosmos = { rating in
             self.addRate(productId: self.productId, rate: rating, isProduct: true){
                 ok in
@@ -54,10 +59,20 @@ class productDetailsController: common{
                 }
             }
         }
+        relatedCollection.register(UINib(nibName: "productsCollectionView", bundle: nil), forCellWithReuseIdentifier: "products")
         
+        relatedCollection.delegate = self
+        relatedCollection.dataSource = self
         CartProductNumber.text = "\(AppDelegate.CartProducts.count)"
         CartProductNumber.isHidden = AppDelegate.CartProducts.count == 0
-        setupBackButtonWithPOP(false)
+    }
+    func getMyFav(){
+        getFavProducts{
+            newFavProducts,data  in
+            self.favProducts.removeAll()
+            self.favProducts.append(contentsOf: newFavProducts)
+            self.relatedCollection.reloadData()
+        }
     }
     fileprivate func setupDate(){
         name.text = product?.title ?? ""
@@ -79,23 +94,31 @@ class productDetailsController: common{
         littleInfo.text = (product?.sectionName ?? "") + (product?.sizeName ?? "")
         fav.image = (isFav ? #imageLiteral(resourceName: "ic_ac_fav_active") : #imageLiteral(resourceName: "ic_ac_fav")).withRenderingMode(.alwaysOriginal)
     }
-    @IBAction func addToCart(sender: UIButton){
-        
-    }
-    @IBAction func addProductTo_MyFav(sender: UIBarButtonItem){
-        if isFav == false{
+    @IBAction func ToFav(){
+        if self.fav.image?.pngData() == #imageLiteral(resourceName: "ic_ac_fav").pngData(){
             addToFav(productId: productId, product: true){
                 ok in
-                self.fav.image =  #imageLiteral(resourceName: "ic_ac_fav_active").withRenderingMode(.alwaysOriginal)
-                self.isFav = true
+                self.fav.image = #imageLiteral(resourceName: "ic_ac_fav_active").withRenderingMode(.alwaysOriginal)
             }
         }else{
             removeProductFromFav(product: true, productId: productId){
                 ok in
-                self.fav.image =  #imageLiteral(resourceName: "ic_fav").withRenderingMode(.alwaysOriginal)
-                self.isFav = false
+                self.fav.image = #imageLiteral(resourceName: "ic_ac_fav").withRenderingMode(.alwaysOriginal)
             }
         }
+    }
+    func someMethodsWantToCall(cell: UICollectionViewCell,isFav: Bool){
+        guard let cell = cell as? productCell else {
+            return
+        }
+        let indexPath = relatedCollection.indexPath(for: cell)!
+        if isFav{
+            favProducts.append((product?.sellerProducts?[indexPath.row])!)
+        }else{
+            let indx: Any? = favProducts.firstIndex(where: {$0.id == (product?.sellerProducts?[indexPath.row].id ?? 0)})
+            if indx != nil {favProducts.remove(at: indx as! Int)}
+        }
+        relatedCollection.reloadItems(at: [indexPath])
     }
     @IBAction func leftImage(){
         if pageControl.currentPage != 0{
@@ -148,6 +171,7 @@ extension productDetailsController{
                 if error == nil {
                     if success {
                         let dataRecived = try decoder.decode(productDetailsJson.self, from: jsonData)
+                        self.getMyFav()
                         self.product = dataRecived.data
                         self.setupDate()
                         self.setupHorizontalScrollView()
@@ -177,13 +201,11 @@ extension productDetailsController: UICollectionViewDelegate,UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "related", for: indexPath) as! productCell
-        let data = product?.sellerProducts?[indexPath.row]
-        cell.image.sd_setImage(with: URL(string: data?.image ?? ""))
-        cell.title.text = data?.title ?? ""
-        cell.fav.tag = data?.id ?? 0
-        cell.salary.text = data?.price ?? "0"
-        cell.rate.rating = Double(data?.rate ?? 0)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "products", for: indexPath) as! productCell
+        if let data = product?.sellerProducts?[indexPath.row]{
+            cell.link = self
+            cell.setupCellData(data: data, isFav: favProducts.firstIndex(where: {$0.id == data.id}) != nil)
+        }
         return cell
     }
     

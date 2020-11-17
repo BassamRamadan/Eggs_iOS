@@ -35,7 +35,7 @@ class productDetails: Codable {
     let seller: String?
     let sellerID: Int?
     let sellerType: String?
-    let sellerProducts: [SellerProduct]?
+    let sellerProducts: [productData]?
     
     enum CodingKeys: String, CodingKey {
         case id, title
@@ -51,7 +51,7 @@ class productDetails: Codable {
         case sellerProducts = "seller_products"
     }
     
-    init(id: Int?, title: String?, catName: String?, sectionName: String?, volumeName: String?, sizeName: String?, price: String?, rate: Int?, code: String?, note: String?, taxes: String?, brand: String?, brandImage: String?, images: [Image]?, branches: [Branch]?, seller: String?, sellerID: Int?, sellerType: String?, sellerProducts: [SellerProduct]?) {
+    init(id: Int?, title: String?, catName: String?, sectionName: String?, volumeName: String?, sizeName: String?, price: String?, rate: Int?, code: String?, note: String?, taxes: String?, brand: String?, brandImage: String?, images: [Image]?, branches: [Branch]?, seller: String?, sellerID: Int?, sellerType: String?, sellerProducts: [productData]?) {
         self.id = id
         self.title = title
         self.catName = catName

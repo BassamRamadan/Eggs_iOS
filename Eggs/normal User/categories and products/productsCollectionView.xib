@@ -179,6 +179,7 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
+                <outlet property="addToCart" destination="c2h-Ho-FL0" id="3JT-Mz-mqu"/>
                 <outlet property="coin" destination="7Rc-ve-EeR" id="aYn-90-D0Z"/>
                 <outlet property="fav" destination="tKd-J0-jjJ" id="qGV-jv-nCm"/>
                 <outlet property="image" destination="3ak-vX-jAX" id="wnt-ks-iws"/>

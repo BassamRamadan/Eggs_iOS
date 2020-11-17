@@ -24,6 +24,7 @@ class marketProfile: common{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getMyFav()
         setupDelegation()
         setupData()
         setupBackButtonWithPOP(false)
@@ -41,6 +42,27 @@ class marketProfile: common{
         callProducts()
      //   branchesCollection.delegate = self
      //   branchesCollection.dataSource = self
+    }
+    func getMyFav(){
+        getFavProducts{
+            newFavProducts,data  in
+            self.favProducts.removeAll()
+            self.favProducts.append(contentsOf: newFavProducts)
+            self.productsCollection.reloadData()
+        }
+    }
+    func someMethodsWantToCall(cell: UICollectionViewCell,isFav: Bool){
+        guard let cell = cell as? productCell else {
+            return
+        }
+        let indexPath = productsCollection.indexPath(for: cell)!
+        if isFav{
+            favProducts.append((self.products?.data?[indexPath.row])!)
+        }else{
+            let indx: Any? = favProducts.firstIndex(where: {$0.id == (products?.data?[indexPath.row].id ?? 0)})
+            if indx != nil {favProducts.remove(at: indx as! Int)}
+        }
+        productsCollection.reloadItems(at: [indexPath])
     }
     @IBAction func switchButtons(sender: UIButton){
         sender.setTitleColor(.white, for: .normal)
@@ -79,18 +101,10 @@ extension marketProfile: UICollectionViewDelegate , UICollectionViewDataSource ,
         
         if collectionView == productsCollection{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "products", for: indexPath) as! productCell
-            let data = products?.data?[indexPath.row]
-            cell.image.sd_setImage(with: URL(string: data?.image ?? ""))
-            cell.title.text = data?.title ?? ""
-            cell.fav.tag = indexPath.row
-            if favProducts.firstIndex(where: {$0.id == data?.id}) != nil{
-                cell.fav.setImage(#imageLiteral(resourceName: "ic_ac_fav_active").withRenderingMode(.alwaysOriginal), for: .normal)
-            }else{
-                cell.fav.setImage(#imageLiteral(resourceName: "ic_ac_fav").withRenderingMode(.alwaysOriginal), for: .normal)
+            if let data = products?.data?[indexPath.row]{
+                cell.link = self
+                cell.setupCellData(data: data, isFav: favProducts.firstIndex(where: {$0.id == data.id}) != nil)
             }
-            cell.salary.text = data?.price ?? "0"
-            cell.rate.rating = Double(data?.rate ?? 0)
-            cell.users.text = "\(Int((cell.rate.rating/5.0)*100))%"
             return cell
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "branches", for: indexPath) as! categoryCell
