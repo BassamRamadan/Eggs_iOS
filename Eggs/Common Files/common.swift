@@ -39,7 +39,7 @@ class common : UIViewController , NVActivityIndicatorViewable{
     }
     func noDataAvailable(_ collectionView: UICollectionView){
         let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: collectionView.bounds.size.width, height: collectionView.bounds.size.height))
-        noDataLabel.text = "لا يوجد منتجات مضافة حاليا"
+        noDataLabel.text = AppDelegate.lang == "en" ? "There are no products added currently." : "لا يوجد منتجات مضافة حاليا"
         noDataLabel.textColor = UIColor(red: 22.0/255.0, green: 106.0/255.0, blue: 176.0/255.0, alpha: 1.0)
         noDataLabel.textAlignment = NSTextAlignment.center
         collectionView.backgroundView = noDataLabel
@@ -111,7 +111,7 @@ class common : UIViewController , NVActivityIndicatorViewable{
             backBtn.addTarget(self, action: #selector(self.Dismiss), for: UIControl.Event.touchUpInside)
         }
         
-        if AppDelegate.isEnglish{
+        if AppDelegate.lang == "en"{
             self.navigationItem.setLeftBarButton(backButton, animated: true)
         }else{
             self.navigationItem.setRightBarButton(backButton, animated: true)
@@ -125,14 +125,24 @@ class common : UIViewController , NVActivityIndicatorViewable{
     @objc func POP() {
         self.navigationController?.popViewController(animated: true)
     }
-    func addProductToCart(item: productData){
-            let cartItem = CartProduct(id: item.id, title: item.title, catID: item.catID, catName: item.catName, sectionName: item.sectionName, volumeName: item.volumeName, sizeName: item.sizeName, price: item.price, rate: item.rate, image: item.image, typeName: item.typeName, weightName: item.weightName,count: 1)
-            AppDelegate.CartProducts.append(cartItem)
-            let encodedData = NSKeyedArchiver.archivedData(withRootObject: AppDelegate.CartProducts)
-            let userDefaults = UserDefaults.standard
-            userDefaults.set(encodedData, forKey: "FullCartData")
+    func addProductToCart(item: productData,brand: String,sellerId: Int,branchItems: Int) -> Bool{
+        let info = item.weightName == nil ? "\(item.sizeName ?? "") - \(item.sectionName ?? "") - \(item.volumeName ?? "")" : "\(item.typeName ?? "") - \(item.weightName ?? "")"
+        let cartItem = CartItem(id: item.id, title: item.title, catName: item.catName, price: item.price, image: item.image, count: 1, info: info, brand: brand,sellerId: sellerId,branchId: AppDelegate.CartBranch,branchItems: branchItems)
+        if AppDelegate.CartItems.count > 0{
+            if AppDelegate.CartItems[0].sellerId != sellerId {
+                self.present(common.makeAlert(message: AppDelegate.lang == "en" ? "should select products for the same seller in cart" : "يجب اختيار منتجات لنفس البائع الموجود بالعربة"), animated: true, completion: nil)
+                return false
+            }
+        }
+        AppDelegate.CartItems.append(cartItem)
+        return true
     }
-   
+    func updateCartItems(_ CartProductNumber: UILabel,_ CartTotalCost: UILabel,_ CartIconView: UIView){
+        CartProductNumber.text = "\(AppDelegate.CartItems.count)"
+        CartProductNumber.isHidden = AppDelegate.CartItems.isEmpty
+        CartTotalCost.text = AppDelegate.calculateCosts()
+        CartIconView.isHidden = AppDelegate.CartItems.isEmpty
+    }
     
     class func OpenSetting(){
         let storyboard = UIStoryboard(name: "Setting", bundle: nil)
@@ -140,19 +150,19 @@ class common : UIViewController , NVActivityIndicatorViewable{
         let appDelegate = UIApplication.shared.delegate
         appDelegate?.window??.rootViewController = linkingVC
     }
-    @objc func OpenCart() {
-        let storyboard = UIStoryboard(name: "Cart", bundle: nil)
-        let linkingVC = storyboard.instantiateViewController(withIdentifier: "Cart") as!
+    func OpenCartNavigations(NavigationName: String) {
+        let storyboard = UIStoryboard(name: "cart", bundle: nil)
+        let linkingVC = storyboard.instantiateViewController(withIdentifier: NavigationName) as!
         UINavigationController
+        linkingVC.modalPresentationStyle = .fullScreen
         self.present(linkingVC,animated: true,completion: nil)
     }
-    
-    func openProductDetails(productId : Int,isFav : Bool){
+    func openProductDetails(productId : Int){
         let storyboard = UIStoryboard(name: "productDetails", bundle: nil)
         let linkingVC = storyboard.instantiateViewController(withIdentifier: "productDetails")  as! UINavigationController
         let VC = linkingVC.viewControllers[0] as! productDetailsController
         VC.productId = productId
-        VC.isFav = isFav
+        linkingVC.modalPresentationStyle = .fullScreen
         self.present(linkingVC, animated: true)
     }
     
@@ -297,7 +307,7 @@ class common : UIViewController , NVActivityIndicatorViewable{
         let headers = [
             "Content-Type": "application/json" ,
             "Accept" : "application/json",
-            "lang": "en",
+            "lang": AppDelegate.lang,
             "country_id": "187"
         ]
         AlamofireRequests.getMethod(url: url,headers: headers){
@@ -361,6 +371,41 @@ class common : UIViewController , NVActivityIndicatorViewable{
             }
         }
     }
+    
+    func getBranches(id: Int,completion: @escaping ([branchData]) -> Void) {
+        self.loading()
+        let url = AppDelegate.LocalUrl + "product/getBranches/\(id)"
+        let headers = [
+            "Content-Type": "application/json" ,
+            "Accept" : "application/json",
+            "lang": AppDelegate.lang,
+            "country_id": "187"
+        ]
+        AlamofireRequests.getMethod(url: url,headers: headers){
+            (error, success, jsonData) in
+            do {
+                let decoder = JSONDecoder()
+                if error == nil {
+                    if success {
+                        let dataRecived = try decoder.decode(branchesModel.self, from: jsonData)
+                        completion(dataRecived.data ?? [])
+                        self.stopAnimating()
+                    }else{
+                        let dataRecived = try decoder.decode(ErrorHandle.self, from: jsonData)
+                        self.present(common.makeAlert(message: dataRecived.message ?? ""), animated: true, completion: nil)
+                        self.stopAnimating()
+                    }
+                }else{
+                    let dataRecived = try decoder.decode(ErrorHandle.self, from: jsonData)
+                    self.present(common.makeAlert(message: dataRecived.message ?? ""), animated: true, completion: nil)
+                    self.stopAnimating()
+                }
+            }catch {
+                self.present(common.makeAlert(), animated: true, completion: nil)
+                self.stopAnimating()
+            }
+        }
+    }
 }
 
 
@@ -388,7 +433,7 @@ extension UIImageView {
     func setDefaultImage(url: String){
         self.sd_setImage(with: URL(string: url))
         if self.image == nil{
-            self.image =  #imageLiteral(resourceName: "Icon-Small-50")
+            self.image =  #imageLiteral(resourceName: "ic_upload_defult_img")
         }
     }
 }
@@ -400,13 +445,6 @@ public extension CATransaction {
         }
         method()
         commit()
-    }
-}
-public extension UITableView {
-    func reloadData(completion: @escaping (() -> Void)) {
-        CATransaction.perform(method: {
-            reloadData()
-        }, completion: completion)
     }
 }
 extension CAShapeLayer {

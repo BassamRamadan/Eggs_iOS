@@ -11,7 +11,7 @@ import Cosmos
 class productCell: UICollectionViewCell {
     @IBOutlet var title: UILabel!
     @IBOutlet var users: UILabel!
-    @IBOutlet var type: UILabel!
+    @IBOutlet var sizeName: UILabel!
     @IBOutlet var salary: UILabel!
     @IBOutlet var coin: UILabel!
     @IBOutlet var rate: CosmosView!
@@ -20,23 +20,18 @@ class productCell: UICollectionViewCell {
     @IBOutlet var addToCart: UIButton!
     var link: common?
     
-    func setupCellData(data: productData,isFav: Bool){
+    func setupCellData(data: productData){
+        sizeName.text = data.weightName == nil ? data.sizeName ?? "" : "\(data.typeName ?? "") - \(data.weightName ?? "")"
         image.sd_setImage(with: URL(string: data.image ?? ""))
         title.text = data.title ?? ""
         salary.text = data.price ?? "0"
         rate.rating = Double(data.rate ?? 0)
-        users.text = "\(Int((rate.rating/5.0)*100))%"
-        fav.tag = data.id ?? 0
-        fav.setImage((isFav == true ? #imageLiteral(resourceName: "ic_ac_fav_active"):#imageLiteral(resourceName: "ic_ac_fav")).withRenderingMode(.alwaysOriginal), for: .normal)
-        fav.addTarget(self, action: #selector(FavAction), for: .touchUpInside)
-    }
+        users.text = "\(Int((rate.rating/5.0)*100))%"    }
     fileprivate func callBackToViewController(ok: Bool) {
         if ((self.link as? mainController) != nil){
             (self.link as? mainController)?.someMethodsWantToCall(cell: self, isFav: ok)
         }else if ((self.link as? productDetailsController) != nil){
             (self.link as? productDetailsController)?.someMethodsWantToCall(cell: self, isFav: ok)
-        }else if ((self.link as? marketProfile) != nil){
-            (self.link as? marketProfile)?.someMethodsWantToCall(cell: self, isFav: ok)
         }
     }
     

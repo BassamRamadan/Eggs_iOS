@@ -19,4 +19,7 @@ class cartCell: UICollectionViewCell {
     @IBOutlet var plus: UIButton!
     @IBOutlet var minus: UIButton!
     @IBOutlet var remove: UIButton!
+    
+    @IBOutlet var available: UILabel!
+    @IBOutlet var notAvailable: UILabel!
 }

@@ -46,7 +46,7 @@ class productsData: Codable {
 // MARK: - Datum
 class productData: Codable {
     let id: Int?
-    let title, catID, catName, sectionName: String?
+    var title, catID, catName, sectionName: String?
     let volumeName, sizeName, price: String?
     let rate: Int?
     let image: String?

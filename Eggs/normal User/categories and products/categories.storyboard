@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JGu-UP-791">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JGu-UP-791">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -43,16 +41,16 @@
                                                                 <rect key="frame" x="20" y="20" width="334" height="88"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="-5" translatesAutoresizingMaskIntoConstraints="NO" id="ahb-Wr-OmE">
-                                                                        <rect key="frame" x="0.0" y="14" width="222" height="60.5"/>
+                                                                        <rect key="frame" x="0.0" y="26.5" width="222" height="35"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Shopping" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0xY-aB-oGh">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="222" height="36.5"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="222" height="22.5"/>
                                                                                 <fontDescription key="fontDescription" name="DroidArabicNaskh-Bold" family="Droid Arabic Naskh" pointSize="19"/>
                                                                                 <color key="textColor" name="bold"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="more about 2500 product" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="MLy-dc-t3x">
-                                                                                <rect key="frame" x="0.0" y="31.5" width="222" height="29"/>
+                                                                                <rect key="frame" x="0.0" y="17.5" width="222" height="17.5"/>
                                                                                 <fontDescription key="fontDescription" name="DroidArabicNaskh" family="Droid Arabic Naskh" pointSize="15"/>
                                                                                 <color key="textColor" name="light"/>
                                                                                 <nil key="highlightedColor"/>
@@ -80,19 +78,19 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="gtl-yA-T4F">
-                                                        <rect key="frame" x="20" y="153" width="374" height="31"/>
+                                                        <rect key="frame" x="20" y="153" width="374" height="19"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Shop products by city" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bTU-nn-q7O">
-                                                                <rect key="frame" x="0.0" y="0.0" width="152.5" height="31"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="158" height="19"/>
                                                                 <fontDescription key="fontDescription" name="DroidArabicNaskh" family="Droid Arabic Naskh" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="ic_locatin" translatesAutoresizingMaskIntoConstraints="NO" id="T1W-pv-foM">
-                                                                <rect key="frame" x="157.5" y="0.0" width="18" height="31"/>
+                                                                <rect key="frame" x="163" y="0.0" width="18" height="19"/>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="masr" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I4W-rZ-2Uu">
-                                                                <rect key="frame" x="180.5" y="0.0" width="193.5" height="31"/>
+                                                                <rect key="frame" x="186" y="0.0" width="188" height="19"/>
                                                                 <fontDescription key="fontDescription" name="DroidArabicNaskh" family="Droid Arabic Naskh" pointSize="16"/>
                                                                 <color key="textColor" name="blue"/>
                                                                 <nil key="highlightedColor"/>
@@ -100,7 +98,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mta-Ch-Zom">
-                                                        <rect key="frame" x="20" y="189" width="374" height="629"/>
+                                                        <rect key="frame" x="20" y="177" width="374" height="641"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="g6E-Ec-jO5">
                                                             <size key="itemSize" width="408" height="201"/>
@@ -117,19 +115,19 @@
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="U9P-lz-kma">
-                                                                            <rect key="frame" x="8" y="71" width="232" height="82.5"/>
+                                                                            <rect key="frame" x="8" y="39.5" width="232" height="57.5"/>
                                                                             <subviews>
                                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="AbX-fy-KqH">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="47.5" height="63.5"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="44.5" height="38.5"/>
                                                                                     <subviews>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9n-ia-Va4">
-                                                                                            <rect key="frame" x="0.0" y="0.0" width="47.5" height="34.5"/>
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="44.5" height="21"/>
                                                                                             <fontDescription key="fontDescription" name="DroidArabicNaskh-Bold" family="Droid Arabic Naskh" pointSize="18"/>
                                                                                             <color key="textColor" name="bold"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="zQB-8D-lPN">
-                                                                                            <rect key="frame" x="0.0" y="34.5" width="47.5" height="29"/>
+                                                                                            <rect key="frame" x="0.0" y="21" width="44.5" height="17.5"/>
                                                                                             <fontDescription key="fontDescription" name="DroidArabicNaskh" family="Droid Arabic Naskh" pointSize="15"/>
                                                                                             <color key="textColor" name="light"/>
                                                                                             <nil key="highlightedColor"/>
@@ -137,12 +135,12 @@
                                                                                     </subviews>
                                                                                 </stackView>
                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_line_en" translatesAutoresizingMaskIntoConstraints="NO" id="16r-Jy-OOw">
-                                                                                    <rect key="frame" x="0.0" y="73.5" width="54" height="9"/>
+                                                                                    <rect key="frame" x="0.0" y="48.5" width="54" height="9"/>
                                                                                 </imageView>
                                                                             </subviews>
                                                                         </stackView>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eggs" translatesAutoresizingMaskIntoConstraints="NO" id="Vze-uz-ckB" customClass="imageShadow" customModule="Eggs" customModuleProvider="target">
-                                                                            <rect key="frame" x="260" y="52" width="140" height="120"/>
+                                                                            <rect key="frame" x="260" y="8" width="140" height="120"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="140" id="GKH-1T-GDr"/>
                                                                                 <constraint firstAttribute="height" constant="120" id="zuZ-21-dUl"/>
@@ -199,16 +197,16 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sxs-gm-5xJ">
-                                                        <rect key="frame" x="20" y="20" width="374" height="31"/>
+                                                        <rect key="frame" x="20" y="20" width="374" height="20.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nYx-ZW-UbM">
-                                                                <rect key="frame" x="0.0" y="0.0" width="363.5" height="31"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="363.5" height="20.5"/>
                                                                 <fontDescription key="fontDescription" name="DroidArabicNaskh-Bold" family="Droid Arabic Naskh" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ZJ-0o-GkK">
-                                                                <rect key="frame" x="363.5" y="0.0" width="10.5" height="31"/>
+                                                                <rect key="frame" x="363.5" y="0.0" width="10.5" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -216,7 +214,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Gwb-qH-Cng">
-                                                        <rect key="frame" x="20" y="61" width="374" height="757"/>
+                                                        <rect key="frame" x="20" y="50.5" width="374" height="767.5"/>
                                                         <color key="backgroundColor" name="screenBackground"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4pq-hl-Jqj">
                                                             <size key="itemSize" width="203" height="438"/>
@@ -281,6 +279,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="4bM-8c-kwo"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="lkK-yc-lPv" firstAttribute="top" secondItem="4bM-8c-kwo" secondAttribute="top" id="BSY-cg-dEt"/>
@@ -288,7 +287,6 @@
                             <constraint firstItem="4bM-8c-kwo" firstAttribute="bottom" secondItem="lkK-yc-lPv" secondAttribute="bottom" id="bLW-9u-cSt"/>
                             <constraint firstItem="4bM-8c-kwo" firstAttribute="trailing" secondItem="lkK-yc-lPv" secondAttribute="trailing" id="zOM-jY-5vs"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="4bM-8c-kwo"/>
                     </view>
                     <navigationItem key="navigationItem" id="vK3-tz-4Ft"/>
                     <connections>

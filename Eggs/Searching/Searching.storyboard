@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -27,22 +26,27 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ucv-TF-xLI">
                                 <rect key="frame" x="20" y="144" width="374" height="718"/>
                                 <color key="backgroundColor" name="screenBackground"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="wqJ-Vd-aFf">
+                                    <rect key="frame" x="0.0" y="82.5" width="374" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="searching" id="0q0-Zr-u83">
-                                        <rect key="frame" x="0.0" y="28" width="374" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="374" height="26.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0q0-Zr-u83" id="ima-ob-0jK">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="26.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="N0k-lA-uhf">
-                                                    <rect key="frame" x="0.0" y="5" width="374" height="36.5"/>
+                                                    <rect key="frame" x="0.0" y="5" width="374" height="19.5"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" image="ic_locatin" translatesAutoresizingMaskIntoConstraints="NO" id="TFy-91-bkG">
-                                                            <rect key="frame" x="0.0" y="9.5" width="18" height="18"/>
+                                                            <rect key="frame" x="0.0" y="1" width="18" height="18"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="qena" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0R3-Xa-FDb">
-                                                            <rect key="frame" x="33" y="3" width="341" height="31"/>
+                                                            <rect key="frame" x="33" y="0.5" width="341" height="19"/>
                                                             <fontDescription key="fontDescription" name="DroidArabicNaskh" family="Droid Arabic Naskh" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -50,7 +54,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="frm-Ui-9VK" customClass="dots" customModule="Eggs" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="42.5" width="374" height="1"/>
+                                                    <rect key="frame" x="0.0" y="25.5" width="374" height="1"/>
                                                     <color key="backgroundColor" name="screenBackground"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="UIT-GX-cD7"/>
@@ -73,6 +77,7 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="nlc-v0-Zyz"/>
                         <color key="backgroundColor" name="screenBackground"/>
                         <constraints>
                             <constraint firstItem="ucv-TF-xLI" firstAttribute="leading" secondItem="nlc-v0-Zyz" secondAttribute="leading" constant="20" id="2V5-on-932"/>
@@ -80,7 +85,6 @@
                             <constraint firstItem="ucv-TF-xLI" firstAttribute="top" secondItem="nlc-v0-Zyz" secondAttribute="top" constant="100" id="RPm-3I-x6o"/>
                             <constraint firstItem="nlc-v0-Zyz" firstAttribute="bottom" secondItem="ucv-TF-xLI" secondAttribute="bottom" id="XIn-EI-qe7"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="nlc-v0-Zyz"/>
                     </view>
                     <connections>
                         <outlet property="searchTable" destination="ucv-TF-xLI" id="oRs-vL-s0p"/>
@@ -96,5 +100,8 @@
         <namedColor name="screenBackground">
             <color red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

@@ -87,6 +87,7 @@ extension ContentViewController: UISearchBarDelegate{
         
         let storyboard = UIStoryboard(name: "Searching", bundle: nil)
         let linkingVC = storyboard.instantiateViewController(withIdentifier: "Searching") as! Searching
+        linkingVC.modalPresentationStyle = .fullScreen
         self.present(linkingVC,animated: true,completion: nil)
         
         return false

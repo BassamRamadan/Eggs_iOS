@@ -20,18 +20,18 @@ class mainController: ContentViewController {
     @IBOutlet var productsCategory: UILabel!
     
     
+    var categoryIndex: Int = 0
     var categoryId: Int = 0
     var page = 1
     var categories: categoriesData?
     var products: productsData?
     var favProducts = [productData]()
-    
+    var productsUrl: String?
     override func viewDidLoad() {
         super.viewDidLoad()
 
         collectionViewaDelegation()
         getCategory()
-        getMyFav()
         setupBackButtonWithPOP()
     }
     func someMethodsWantToCall(cell: UICollectionViewCell,isFav: Bool){
@@ -60,18 +60,17 @@ class mainController: ContentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if page == 2{
-            getMyFav()
             callProducts()
         }
     }
     fileprivate func  callProducts(){
-        let url = AppDelegate.LocalUrl + "product?cat_id=\(categories?.categoryItems?[categoryId].id ?? 0)"
+        let url = productsUrl == nil ? AppDelegate.LocalUrl + "product?cat_id=\(categories?.categoryItems?[categoryIndex].id ?? 0)" : (productsUrl ?? "")
         getProducts(url: url){
             data in
             self.products = data
-            self.productsCollection.reloadData()
+            self.getMyFav()
             self.productsCount.text = "\(self.products?.data?.count ?? 0)"
-            self.productsCategory.text = self.categories?.categoryItems?[self.categoryId].title
+            self.productsCategory.text = self.categories?.categoryItems?[self.categoryIndex].title
         }
     }
     override func setupBackButtonWithPOP(_ pop:Bool? = true) {
@@ -79,7 +78,7 @@ class mainController: ContentViewController {
         let backBtn: UIButton = common.drowbackButton()
         let backButton = UIBarButtonItem(customView: backBtn)
         backBtn.addTarget(self, action: #selector(self.back), for: UIControl.Event.touchUpInside)
-        if AppDelegate.isEnglish{
+        if AppDelegate.lang == "en"{
             self.navigationItem.setLeftBarButton(backButton, animated: true)
         }else{
             self.navigationItem.setRightBarButton(backButton, animated: true)
@@ -121,15 +120,25 @@ class mainController: ContentViewController {
             let des = linkingVC.viewControllers[0] as! filters
             des.parentId = Int(products?.data?[0].catID ?? "0") ?? 0
             des.isEggs = false
+            des.parentController = self
+            linkingVC.modalPresentationStyle = .fullScreen
             self.present(linkingVC,animated: true,completion: nil)
         }
     }
 }
 extension mainController: UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        collectionView.backgroundView = nil
+        
         if collectionView == categoryCollection{
+            if (categories?.categoryItems?.count ?? 0 == 0){
+                noDataAvailable(collectionView)
+            }
             return categories?.categoryItems?.count ?? 0
         }else{
+            if (products?.data?.count ?? 0 == 0){
+                noDataAvailable(collectionView)
+            }
             return products?.data?.count ?? 0
         }
     }
@@ -137,7 +146,7 @@ extension mainController: UICollectionViewDelegate , UICollectionViewDataSource 
         if collectionView == categoryCollection{
             return .init(width: collectionView.frame.width, height: 150)
         }else{
-            return .init(width: (collectionView.frame.width - 10)/2, height: 310)
+            return .init(width: (collectionView.frame.width - 10)/2, height: 350)
         }
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -155,7 +164,7 @@ extension mainController: UICollectionViewDelegate , UICollectionViewDataSource 
             cell.addToCart.isHidden = true
             if let data = products?.data?[indexPath.row]{
                 cell.link = self
-                cell.setupCellData(data: data, isFav: favProducts.firstIndex(where: {$0.id == data.id}) != nil)
+                cell.setupCellData(data: data)
             }
             return cell
         }
@@ -163,10 +172,11 @@ extension mainController: UICollectionViewDelegate , UICollectionViewDataSource 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         if collectionView == productsCollection{
-            let indx: Any? = favProducts.firstIndex(where: {$0.id == products?.data?[indexPath.row].id ?? 0})
-            openProductDetails(productId: products?.data?[indexPath.row].id ?? 0, isFav: indx != nil)
+            openProductDetails(productId: products?.data?[indexPath.row].id ?? 0)
         }else{
-            categoryId = indexPath.row
+            categoryId = categories?.categoryItems?[indexPath.row].id ?? 0
+            categoryIndex = indexPath.row
+            productsUrl = nil
             currentPageToAppear()
             callProducts()
         }
@@ -186,7 +196,7 @@ extension mainController {
         let headers = [
             "Content-Type": "application/json" ,
             "Accept" : "application/json",
-            "lang": "en",
+            "lang": AppDelegate.lang,
             "country_id": "187"
         ]
         AlamofireRequests.getMethod(url: url,headers: headers){

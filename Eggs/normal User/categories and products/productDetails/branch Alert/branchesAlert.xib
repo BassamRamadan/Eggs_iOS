@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="DroidNaskh-Bold.ttf">
+            <string>DroidArabicNaskh-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="branchesAlert" customModule="Eggs" customModuleProvider="target">
+            <connections>
+                <outlet property="branchesCollection" destination="p8e-2y-13A" id="8CD-12-zX1"/>
+                <outlet property="view" destination="8Bx-0n-hac" id="YJp-Np-P9e"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="8Bx-0n-hac">
+            <rect key="frame" x="0.0" y="0.0" width="351" height="320"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IRv-Ge-JSD" customClass="ViewShadow" customModule="Eggs" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="351" height="320"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tr3-B2-A9P">
+                            <rect key="frame" x="311" y="15" width="25" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="25" id="mK3-7e-aMX"/>
+                                <constraint firstAttribute="height" constant="25" id="no4-Jn-Xxn"/>
+                            </constraints>
+                            <state key="normal" backgroundImage="ic_close"/>
+                            <connections>
+                                <action selector="close" destination="-1" eventType="touchUpInside" id="kin-O8-Psp"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="أختر الفرع الاقرب اليك" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKk-cF-Dpu">
+                            <rect key="frame" x="20" y="50" width="311" height="18.666666666666671"/>
+                            <fontDescription key="fontDescription" name="DroidArabicNaskh-Bold" family="Droid Arabic Naskh" pointSize="16"/>
+                            <color key="textColor" name="blue"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="p8e-2y-13A">
+                            <rect key="frame" x="20" y="88.666666666666686" width="311" height="150"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="150" id="wMc-82-hDy"/>
+                            </constraints>
+                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="LkZ-0A-ob2">
+                                <size key="itemSize" width="128" height="128"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                        </collectionView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vK6-3A-5cY">
+                            <rect key="frame" x="301" y="279" width="30" height="31"/>
+                            <fontDescription key="fontDescription" name="DroidArabicNaskh-Bold" family="Droid Arabic Naskh" pointSize="16"/>
+                            <state key="normal" title="نعم"/>
+                            <connections>
+                                <action selector="ok" destination="-1" eventType="touchUpInside" id="0MK-Sj-tQF"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M8F-pX-zYA">
+                            <rect key="frame" x="20" y="279" width="30" height="31"/>
+                            <fontDescription key="fontDescription" name="DroidArabicNaskh-Bold" family="Droid Arabic Naskh" pointSize="16"/>
+                            <state key="normal" title="لا"/>
+                            <connections>
+                                <action selector="close" destination="-1" eventType="touchUpInside" id="IOt-iR-dfL"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="dKk-cF-Dpu" firstAttribute="top" secondItem="Tr3-B2-A9P" secondAttribute="bottom" constant="10" id="4qK-dI-W08"/>
+                        <constraint firstItem="Tr3-B2-A9P" firstAttribute="top" secondItem="IRv-Ge-JSD" secondAttribute="top" constant="15" id="67b-EZ-02K"/>
+                        <constraint firstAttribute="trailing" secondItem="dKk-cF-Dpu" secondAttribute="trailing" constant="20" id="7II-KY-Z75"/>
+                        <constraint firstAttribute="bottom" secondItem="vK6-3A-5cY" secondAttribute="bottom" constant="10" id="MVN-K0-vxz"/>
+                        <constraint firstItem="dKk-cF-Dpu" firstAttribute="leading" secondItem="IRv-Ge-JSD" secondAttribute="leading" constant="20" id="TqF-eO-0qo"/>
+                        <constraint firstItem="p8e-2y-13A" firstAttribute="top" secondItem="dKk-cF-Dpu" secondAttribute="bottom" constant="20" id="UWV-JV-GNu"/>
+                        <constraint firstAttribute="trailing" secondItem="vK6-3A-5cY" secondAttribute="trailing" constant="20" id="Uev-3Q-fzT"/>
+                        <constraint firstAttribute="trailing" secondItem="Tr3-B2-A9P" secondAttribute="trailing" constant="15" id="X0Q-bV-rbD"/>
+                        <constraint firstItem="M8F-pX-zYA" firstAttribute="leading" secondItem="IRv-Ge-JSD" secondAttribute="leading" constant="20" id="Zdz-4z-b6v"/>
+                        <constraint firstAttribute="trailing" secondItem="p8e-2y-13A" secondAttribute="trailing" constant="20" id="a1D-hz-euD"/>
+                        <constraint firstAttribute="height" constant="320" id="ekY-gb-g5M"/>
+                        <constraint firstItem="p8e-2y-13A" firstAttribute="leading" secondItem="IRv-Ge-JSD" secondAttribute="leading" constant="20" id="jMu-cw-W9l"/>
+                        <constraint firstAttribute="bottom" secondItem="M8F-pX-zYA" secondAttribute="bottom" constant="10" id="jx6-aL-6yp"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="20"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="gp3-cv-ORn"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="IRv-Ge-JSD" firstAttribute="bottom" secondItem="8Bx-0n-hac" secondAttribute="bottom" id="7VL-iG-xbW"/>
+                <constraint firstAttribute="trailing" secondItem="IRv-Ge-JSD" secondAttribute="trailing" id="Cdo-YB-mIw"/>
+                <constraint firstItem="IRv-Ge-JSD" firstAttribute="top" secondItem="8Bx-0n-hac" secondAttribute="top" id="aEc-Hm-Tqf"/>
+                <constraint firstItem="IRv-Ge-JSD" firstAttribute="leading" secondItem="8Bx-0n-hac" secondAttribute="leading" id="evn-tf-MKc"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                    <integer key="value" value="20"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="3.6231884057971016" y="-6.6964285714285712"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_close" width="24" height="24"/>
+        <namedColor name="blue">
+            <color red="0.0" green="0.51764705882352946" blue="0.99215686274509807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

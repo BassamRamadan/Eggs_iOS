@@ -18,7 +18,6 @@ class setting: common {
     @IBOutlet var currentImage : UIImageView!
   
     var userData: profileData?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

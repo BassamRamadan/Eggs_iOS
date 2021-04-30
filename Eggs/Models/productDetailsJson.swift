@@ -24,8 +24,32 @@ class productDetailsJson: Codable {
 
 // MARK: - DataClass
 class productDetails: Codable {
+    internal init(id: Int?, title: String?, catName: String?, sectionName: String?, volumeName: String?, weightName: String?, typeName: String?, sizeName: String?, price: String?, rate: Int?, code: String?, note: String?, taxes: String?, brand: String?, brandImage: String?, images: [Image]?, branches: [Branch]?, seller: String?, sellerID: Int?, sellerType: String?, sellerProducts: [productData]?) {
+        self.id = id
+        self.title = title
+        self.catName = catName
+        self.sectionName = sectionName
+        self.volumeName = volumeName
+        self.weightName = weightName
+        self.typeName = typeName
+        self.sizeName = sizeName
+        self.price = price
+        self.rate = rate
+        self.code = code
+        self.note = note
+        self.taxes = taxes
+        self.brand = brand
+        self.brandImage = brandImage
+        self.images = images
+        self.branches = branches
+        self.seller = seller
+        self.sellerID = sellerID
+        self.sellerType = sellerType
+        self.sellerProducts = sellerProducts
+    }
+    
     let id: Int?
-    let title, catName, sectionName, volumeName: String?
+    let title, catName, sectionName, volumeName, weightName, typeName: String?
     let sizeName, price: String?
     let rate: Int?
     let code, note, taxes, brand: String?
@@ -43,34 +67,14 @@ class productDetails: Codable {
         case sectionName = "section_name"
         case volumeName = "volume_name"
         case sizeName = "size_name"
+        case weightName = "weight_name"
+        case typeName = "type_name"
         case price, rate, code, note, taxes, brand
         case brandImage = "brand_image"
         case images, branches, seller
         case sellerID = "seller_id"
         case sellerType = "seller_type"
         case sellerProducts = "seller_products"
-    }
-    
-    init(id: Int?, title: String?, catName: String?, sectionName: String?, volumeName: String?, sizeName: String?, price: String?, rate: Int?, code: String?, note: String?, taxes: String?, brand: String?, brandImage: String?, images: [Image]?, branches: [Branch]?, seller: String?, sellerID: Int?, sellerType: String?, sellerProducts: [productData]?) {
-        self.id = id
-        self.title = title
-        self.catName = catName
-        self.sectionName = sectionName
-        self.volumeName = volumeName
-        self.sizeName = sizeName
-        self.price = price
-        self.rate = rate
-        self.code = code
-        self.note = note
-        self.taxes = taxes
-        self.brand = brand
-        self.brandImage = brandImage
-        self.images = images
-        self.branches = branches
-        self.seller = seller
-        self.sellerID = sellerID
-        self.sellerType = sellerType
-        self.sellerProducts = sellerProducts
     }
 }
 

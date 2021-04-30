@@ -15,12 +15,13 @@ import Firebase
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    static var isEnglish = true
+    static var lang = "en"
     static var stringWithLink = ""
     static var LocalUrl = "https://www.eggs-apps.com/app/api/"
     static var badge = [CAShapeLayer()]
     static var firstBadge = [true]
-    static var CartProducts = [CartProduct]()
+    static var CartItems = [CartItem]()
+    static var CartBranch: Int?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
     
@@ -28,23 +29,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //    GMSServices.provideAPIKey("AIzaSyCH41pwRsQKTf9IXYWxzbMA1V6cHHsmmZM")
    // GMSPlacesClient.provideAPIKey("AIzaSyCH41pwRsQKTf9IXYWxzbMA1V6cHHsmmZM")
     //    FirebaseApp.configure()
-        CashedData.saveUserApiKey(token: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjUsImlzcyI6Imh0dHA6Ly9lZ2cubWUvYXBpL3VzZXJzL2F1dGgiLCJpYXQiOjE1OTgzNzA3MjIsImV4cCI6MTYwODg4MjcyMiwibmJmIjoxNTk4MzcwNzIyLCJqdGkiOiJZeDNieThCOE1URThWZ0huIn0.1KpTH8v6rtwP5yzJJcS9b_szfkBCYKy5qTziWJP_TMI")
+        CashedData.saveUserApiKey(token: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQsImlzcyI6Imh0dHA6Ly93d3cuZWdncy1hcHBzLmNvbS9hcHAvYXBpL21lcmNoYW50L3VzZXIvYXV0aCIsImlhdCI6MTYwOTgzMDQ0MiwiZXhwIjoxNjIwMzQyNDQyLCJuYmYiOjE2MDk4MzA0NDIsImp0aSI6IlQyMDdsUnFYdmliS1NROWkifQ.l5_esWXBkmAE9MMEVN4tMMsNULLcL3efnHbjbibWDe4")
         
-        setupCartProducts()
         return true
     }
 
-    func setupCartProducts(){
-        if let decoded  = UserDefaults.standard.object(forKey: "FullCartData") as? Data{
-            AppDelegate.CartProducts = NSKeyedUnarchiver.unarchiveObject(with: decoded) as! [CartProduct]
-        }else{
-            let encodedData = NSKeyedArchiver.archivedData(withRootObject: [CartProduct]())
-            let userDefaults = UserDefaults.standard
-            userDefaults.set(encodedData, forKey: "FullCartData")
-            if let decoded  = UserDefaults.standard.object(forKey: "FullCartData") as? Data{
-                AppDelegate.CartProducts = NSKeyedUnarchiver.unarchiveObject(with: decoded) as! [CartProduct]
-            }
+    static func calculateCosts() -> String{
+        var Summation: Double = 0.0
+        for x in AppDelegate.CartItems{
+            Summation += ((Double(x.price ?? "0") ?? 0) * min(Double(x.branchItems ?? 1), Double(x.count ?? 1)) )
         }
+        return "\(Summation)"
     }
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
