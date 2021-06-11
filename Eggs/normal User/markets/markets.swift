@@ -74,6 +74,7 @@ extension markets: UICollectionViewDelegate , UICollectionViewDataSource , UICol
         let linkingVC = storyboard.instantiateViewController(withIdentifier: "marketProfile")  as! UINavigationController
         let VC = linkingVC.viewControllers[0] as! marketProfile
         VC.marketData = marketsData?.categoryItems?[indexPath.row]
+        linkingVC.modalPresentationStyle = .fullScreen
         self.present(linkingVC, animated: true)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
